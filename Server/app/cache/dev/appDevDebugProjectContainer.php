@@ -107,6 +107,24 @@ class appDevDebugProjectContainer extends Container
             'form.type_extension.submit.validator' => 'getForm_TypeExtension_Submit_ValidatorService',
             'form.type_guesser.doctrine' => 'getForm_TypeGuesser_DoctrineService',
             'form.type_guesser.validator' => 'getForm_TypeGuesser_ValidatorService',
+            'fos_rest.body_listener' => 'getFosRest_BodyListenerService',
+            'fos_rest.decoder.json' => 'getFosRest_Decoder_JsonService',
+            'fos_rest.decoder.jsontoform' => 'getFosRest_Decoder_JsontoformService',
+            'fos_rest.decoder.xml' => 'getFosRest_Decoder_XmlService',
+            'fos_rest.decoder_provider' => 'getFosRest_DecoderProviderService',
+            'fos_rest.format_listener' => 'getFosRest_FormatListenerService',
+            'fos_rest.format_negotiator' => 'getFosRest_FormatNegotiatorService',
+            'fos_rest.inflector.doctrine' => 'getFosRest_Inflector_DoctrineService',
+            'fos_rest.request.param_fetcher' => 'getFosRest_Request_ParamFetcherService',
+            'fos_rest.request.param_fetcher.reader' => 'getFosRest_Request_ParamFetcher_ReaderService',
+            'fos_rest.routing.loader.controller' => 'getFosRest_Routing_Loader_ControllerService',
+            'fos_rest.routing.loader.processor' => 'getFosRest_Routing_Loader_ProcessorService',
+            'fos_rest.routing.loader.reader.action' => 'getFosRest_Routing_Loader_Reader_ActionService',
+            'fos_rest.routing.loader.reader.controller' => 'getFosRest_Routing_Loader_Reader_ControllerService',
+            'fos_rest.routing.loader.xml_collection' => 'getFosRest_Routing_Loader_XmlCollectionService',
+            'fos_rest.routing.loader.yaml_collection' => 'getFosRest_Routing_Loader_YamlCollectionService',
+            'fos_rest.serializer' => 'getFosRest_SerializerService',
+            'fos_rest.view_handler' => 'getFosRest_ViewHandlerService',
             'fos_user.change_password.form.factory' => 'getFosUser_ChangePassword_Form_FactoryService',
             'fos_user.change_password.form.type' => 'getFosUser_ChangePassword_Form_TypeService',
             'fos_user.listener.authentication' => 'getFosUser_Listener_AuthenticationService',
@@ -132,6 +150,22 @@ class appDevDebugProjectContainer extends Container
             'fragment.renderer.hinclude' => 'getFragment_Renderer_HincludeService',
             'fragment.renderer.inline' => 'getFragment_Renderer_InlineService',
             'http_kernel' => 'getHttpKernelService',
+            'jms_serializer.array_collection_handler' => 'getJmsSerializer_ArrayCollectionHandlerService',
+            'jms_serializer.constraint_violation_handler' => 'getJmsSerializer_ConstraintViolationHandlerService',
+            'jms_serializer.datetime_handler' => 'getJmsSerializer_DatetimeHandlerService',
+            'jms_serializer.doctrine_proxy_subscriber' => 'getJmsSerializer_DoctrineProxySubscriberService',
+            'jms_serializer.form_error_handler' => 'getJmsSerializer_FormErrorHandlerService',
+            'jms_serializer.handler_registry' => 'getJmsSerializer_HandlerRegistryService',
+            'jms_serializer.json_deserialization_visitor' => 'getJmsSerializer_JsonDeserializationVisitorService',
+            'jms_serializer.json_serialization_visitor' => 'getJmsSerializer_JsonSerializationVisitorService',
+            'jms_serializer.metadata_driver' => 'getJmsSerializer_MetadataDriverService',
+            'jms_serializer.naming_strategy' => 'getJmsSerializer_NamingStrategyService',
+            'jms_serializer.php_collection_handler' => 'getJmsSerializer_PhpCollectionHandlerService',
+            'jms_serializer.templating.helper.serializer' => 'getJmsSerializer_Templating_Helper_SerializerService',
+            'jms_serializer.unserialize_object_constructor' => 'getJmsSerializer_UnserializeObjectConstructorService',
+            'jms_serializer.xml_deserialization_visitor' => 'getJmsSerializer_XmlDeserializationVisitorService',
+            'jms_serializer.xml_serialization_visitor' => 'getJmsSerializer_XmlSerializationVisitorService',
+            'jms_serializer.yaml_serialization_visitor' => 'getJmsSerializer_YamlSerializationVisitorService',
             'kernel' => 'getKernelService',
             'locale_listener' => 'getLocaleListenerService',
             'logger' => 'getLoggerService',
@@ -251,7 +285,12 @@ class appDevDebugProjectContainer extends Container
             'database_connection' => 'getDoctrine_Dbal_DefaultConnectionService',
             'debug.templating.engine.twig' => 'getTemplatingService',
             'doctrine.orm.entity_manager' => 'getDoctrine_Orm_DefaultEntityManagerService',
+            'fos_rest.inflector' => 'getFosRest_Inflector_DoctrineService',
+            'fos_rest.router' => 'getRouterService',
+            'fos_rest.templating' => 'getTemplatingService',
             'fos_user.util.username_canonicalizer' => 'getFosUser_Util_EmailCanonicalizerService',
+            'jms_serializer' => 'getFosRest_SerializerService',
+            'serializer' => 'getFosRest_SerializerService',
             'session.storage' => 'getSession_Storage_NativeService',
             'translator' => 'getTranslator_DefaultService',
         );
@@ -267,7 +306,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAnnotationReaderService()
     {
-        return $this->services['annotation_reader'] = new \Doctrine\Common\Annotations\FileCacheReader(new \Doctrine\Common\Annotations\AnnotationReader(), '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/annotations', true);
+        return $this->services['annotation_reader'] = new \Doctrine\Common\Annotations\FileCacheReader(new \Doctrine\Common\Annotations\AnnotationReader(), '/home/notprathap/workspace/projectelephant/Server/app/cache/dev/annotations', true);
     }
 
     /**
@@ -280,9 +319,9 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_AssetManagerService()
     {
-        $this->services['assetic.asset_manager'] = $instance = new \Assetic\Factory\LazyAssetManager($this->get('assetic.asset_factory'), array('twig' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Assetic\Extension\Twig\TwigFormulaLoader($this->get('twig')), new \Assetic\Cache\ConfigCache('/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/assetic/config'), true)));
+        $this->services['assetic.asset_manager'] = $instance = new \Assetic\Factory\LazyAssetManager($this->get('assetic.asset_factory'), array('twig' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Assetic\Extension\Twig\TwigFormulaLoader($this->get('twig')), new \Assetic\Cache\ConfigCache('/home/notprathap/workspace/projectelephant/Server/app/cache/dev/assetic/config'), true)));
 
-        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($this->get('templating.loader'), '', '/home/notprathap/workspace/cookbook/2.3.0/app/Resources/views', '/\\.[^.]+\\.twig$/'), 'twig');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($this->get('templating.loader'), '', '/home/notprathap/workspace/projectelephant/Server/app/Resources/views', '/\\.[^.]+\\.twig$/'), 'twig');
 
         return $instance;
     }
@@ -368,7 +407,7 @@ class appDevDebugProjectContainer extends Container
         $a = $this->get('kernel');
         $b = $this->get('templating.filename_parser');
 
-        $c = new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplateFinder($a, $b, '/home/notprathap/workspace/cookbook/2.3.0/app/Resources');
+        $c = new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplateFinder($a, $b, '/home/notprathap/workspace/projectelephant/Server/app/Resources');
 
         return $this->services['cache_warmer'] = new \Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerAggregate(array(0 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplatePathsCacheWarmer($c, $this->get('templating.locator')), 1 => new \Symfony\Bundle\AsseticBundle\CacheWarmer\AssetManagerCacheWarmer($this), 2 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\RouterCacheWarmer($this->get('router')), 3 => new \Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheCacheWarmer($this, $c), 4 => new \Symfony\Bridge\Doctrine\CacheWarmer\ProxyCacheWarmer($this->get('doctrine'))));
     }
@@ -480,7 +519,7 @@ class appDevDebugProjectContainer extends Container
     {
         $this->services['debug.templating.engine.php'] = $instance = new \Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine($this->get('templating.name_parser'), $this, $this->get('templating.loader'), $this->get('debug.stopwatch'), $this->get('templating.globals'));
 
-        $instance->setHelpers(array('slots' => 'templating.helper.slots', 'assets' => 'templating.helper.assets', 'request' => 'templating.helper.request', 'session' => 'templating.helper.session', 'router' => 'templating.helper.router', 'actions' => 'templating.helper.actions', 'code' => 'templating.helper.code', 'translator' => 'templating.helper.translator', 'form' => 'templating.helper.form', 'logout_url' => 'templating.helper.logout_url', 'security' => 'templating.helper.security', 'assetic' => 'assetic.helper.dynamic'));
+        $instance->setHelpers(array('slots' => 'templating.helper.slots', 'assets' => 'templating.helper.assets', 'request' => 'templating.helper.request', 'session' => 'templating.helper.session', 'router' => 'templating.helper.router', 'actions' => 'templating.helper.actions', 'code' => 'templating.helper.code', 'translator' => 'templating.helper.translator', 'form' => 'templating.helper.form', 'logout_url' => 'templating.helper.logout_url', 'security' => 'templating.helper.security', 'assetic' => 'assetic.helper.dynamic', 'jms_serializer' => 'jms_serializer.templating.helper.serializer'));
 
         return $instance;
     }
@@ -545,21 +584,21 @@ class appDevDebugProjectContainer extends Container
     protected function getDoctrine_Orm_DefaultEntityManagerService()
     {
         $a = new \Doctrine\Common\Cache\ArrayCache();
-        $a->setNamespace('sf2orm_default_78f1a3f0d4d1123fdad7c8ab5078c00c');
+        $a->setNamespace('sf2orm_default_8c1d24a1ddcb5c5ee0e831b0e73e3bb3');
 
         $b = new \Doctrine\Common\Cache\ArrayCache();
-        $b->setNamespace('sf2orm_default_78f1a3f0d4d1123fdad7c8ab5078c00c');
+        $b->setNamespace('sf2orm_default_8c1d24a1ddcb5c5ee0e831b0e73e3bb3');
 
         $c = new \Doctrine\Common\Cache\ArrayCache();
-        $c->setNamespace('sf2orm_default_78f1a3f0d4d1123fdad7c8ab5078c00c');
+        $c->setNamespace('sf2orm_default_8c1d24a1ddcb5c5ee0e831b0e73e3bb3');
 
-        $d = new \Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver(array('/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/doctrine' => 'FOS\\UserBundle\\Entity'));
+        $d = new \Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver(array('/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/doctrine' => 'FOS\\UserBundle\\Entity'));
         $d->setGlobalBasename('mapping');
 
         $e = new \Doctrine\ORM\Mapping\Driver\DriverChain();
         $e->addDriver($d, 'FOS\\UserBundle\\Entity');
-        $e->addDriver(new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($this->get('annotation_reader'), array(0 => '/home/notprathap/workspace/cookbook/2.3.0/src/CookBook/UserBundle/Entity')), 'CookBook\\UserBundle\\Entity');
-        $e->addDriver(new \Doctrine\ORM\Mapping\Driver\XmlDriver(new \Doctrine\Common\Persistence\Mapping\Driver\SymfonyFileLocator(array('/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/doctrine/model' => 'FOS\\UserBundle\\Model'), '.orm.xml')), 'FOS\\UserBundle\\Model');
+        $e->addDriver(new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($this->get('annotation_reader'), array(0 => '/home/notprathap/workspace/projectelephant/Server/src/CookBook/UserBundle/Entity')), 'CookBook\\UserBundle\\Entity');
+        $e->addDriver(new \Doctrine\ORM\Mapping\Driver\XmlDriver(new \Doctrine\Common\Persistence\Mapping\Driver\SymfonyFileLocator(array('/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/doctrine/model' => 'FOS\\UserBundle\\Model'), '.orm.xml')), 'FOS\\UserBundle\\Model');
 
         $f = new \Doctrine\ORM\Configuration();
         $f->setEntityNamespaces(array('FOSUserBundle' => 'FOS\\UserBundle\\Entity', 'CookBookUserBundle' => 'CookBook\\UserBundle\\Entity'));
@@ -567,7 +606,7 @@ class appDevDebugProjectContainer extends Container
         $f->setQueryCacheImpl($b);
         $f->setResultCacheImpl($c);
         $f->setMetadataDriverImpl($e);
-        $f->setProxyDir('/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/doctrine/orm/Proxies');
+        $f->setProxyDir('/home/notprathap/workspace/projectelephant/Server/app/cache/dev/doctrine/orm/Proxies');
         $f->setProxyNamespace('Proxies');
         $f->setAutoGenerateProxyClasses(true);
         $f->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
@@ -636,6 +675,8 @@ class appDevDebugProjectContainer extends Container
         $instance->addListenerService('kernel.response', array(0 => 'monolog.handler.firephp', 1 => 'onKernelResponse'), 0);
         $instance->addListenerService('kernel.response', array(0 => 'monolog.handler.chromephp', 1 => 'onKernelResponse'), 0);
         $instance->addListenerService('kernel.request', array(0 => 'assetic.request_listener', 1 => 'onKernelRequest'), 0);
+        $instance->addListenerService('kernel.request', array(0 => 'fos_rest.body_listener', 1 => 'onKernelRequest'), 0);
+        $instance->addListenerService('kernel.controller', array(0 => 'fos_rest.format_listener', 1 => 'onKernelController'), 0);
         $instance->addSubscriberService('response_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener');
         $instance->addSubscriberService('streamed_response_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\StreamedResponseListener');
         $instance->addSubscriberService('locale_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\LocaleListener');
@@ -673,7 +714,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getFileLocatorService()
     {
-        return $this->services['file_locator'] = new \Symfony\Component\HttpKernel\Config\FileLocator($this->get('kernel'), '/home/notprathap/workspace/cookbook/2.3.0/app/Resources');
+        return $this->services['file_locator'] = new \Symfony\Component\HttpKernel\Config\FileLocator($this->get('kernel'), '/home/notprathap/workspace/projectelephant/Server/app/Resources');
     }
 
     /**
@@ -1236,6 +1277,260 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'fos_rest.body_listener' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\EventListener\BodyListener A FOS\RestBundle\EventListener\BodyListener instance.
+     */
+    protected function getFosRest_BodyListenerService()
+    {
+        return $this->services['fos_rest.body_listener'] = new \FOS\RestBundle\EventListener\BodyListener($this->get('fos_rest.decoder_provider'));
+    }
+
+    /**
+     * Gets the 'fos_rest.decoder.json' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\Rest\Decoder\JsonDecoder A FOS\Rest\Decoder\JsonDecoder instance.
+     */
+    protected function getFosRest_Decoder_JsonService()
+    {
+        return $this->services['fos_rest.decoder.json'] = new \FOS\Rest\Decoder\JsonDecoder();
+    }
+
+    /**
+     * Gets the 'fos_rest.decoder.jsontoform' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\Rest\Decoder\JsonToFormDecoder A FOS\Rest\Decoder\JsonToFormDecoder instance.
+     */
+    protected function getFosRest_Decoder_JsontoformService()
+    {
+        return $this->services['fos_rest.decoder.jsontoform'] = new \FOS\Rest\Decoder\JsonToFormDecoder();
+    }
+
+    /**
+     * Gets the 'fos_rest.decoder.xml' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\Rest\Decoder\XmlDecoder A FOS\Rest\Decoder\XmlDecoder instance.
+     */
+    protected function getFosRest_Decoder_XmlService()
+    {
+        return $this->services['fos_rest.decoder.xml'] = new \FOS\Rest\Decoder\XmlDecoder();
+    }
+
+    /**
+     * Gets the 'fos_rest.decoder_provider' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\Decoder\ContainerDecoderProvider A FOS\RestBundle\Decoder\ContainerDecoderProvider instance.
+     */
+    protected function getFosRest_DecoderProviderService()
+    {
+        $this->services['fos_rest.decoder_provider'] = $instance = new \FOS\RestBundle\Decoder\ContainerDecoderProvider(array('json' => 'fos_rest.decoder.json', 'xml' => 'fos_rest.decoder.xml'));
+
+        $instance->setContainer($this);
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'fos_rest.format_listener' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\EventListener\FormatListener A FOS\RestBundle\EventListener\FormatListener instance.
+     */
+    protected function getFosRest_FormatListenerService()
+    {
+        return $this->services['fos_rest.format_listener'] = new \FOS\RestBundle\EventListener\FormatListener($this->get('fos_rest.format_negotiator'), 'html', array(0 => 'html', 1 => '*/*'), true);
+    }
+
+    /**
+     * Gets the 'fos_rest.format_negotiator' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\Rest\Util\FormatNegotiator A FOS\Rest\Util\FormatNegotiator instance.
+     */
+    protected function getFosRest_FormatNegotiatorService()
+    {
+        return $this->services['fos_rest.format_negotiator'] = new \FOS\Rest\Util\FormatNegotiator();
+    }
+
+    /**
+     * Gets the 'fos_rest.inflector.doctrine' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\Util\Inflector\DoctrineInflector A FOS\RestBundle\Util\Inflector\DoctrineInflector instance.
+     */
+    protected function getFosRest_Inflector_DoctrineService()
+    {
+        return $this->services['fos_rest.inflector.doctrine'] = new \FOS\RestBundle\Util\Inflector\DoctrineInflector();
+    }
+
+    /**
+     * Gets the 'fos_rest.request.param_fetcher' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\Request\ParamFetcher A FOS\RestBundle\Request\ParamFetcher instance.
+     * 
+     * @throws InactiveScopeException when the 'fos_rest.request.param_fetcher' service is requested while the 'request' scope is not active
+     */
+    protected function getFosRest_Request_ParamFetcherService()
+    {
+        if (!isset($this->scopedServices['request'])) {
+            throw new InactiveScopeException('fos_rest.request.param_fetcher', 'request');
+        }
+
+        return $this->services['fos_rest.request.param_fetcher'] = $this->scopedServices['request']['fos_rest.request.param_fetcher'] = new \FOS\RestBundle\Request\ParamFetcher($this->get('fos_rest.request.param_fetcher.reader'), $this->get('request'));
+    }
+
+    /**
+     * Gets the 'fos_rest.request.param_fetcher.reader' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\Request\ParamReader A FOS\RestBundle\Request\ParamReader instance.
+     */
+    protected function getFosRest_Request_ParamFetcher_ReaderService()
+    {
+        return $this->services['fos_rest.request.param_fetcher.reader'] = new \FOS\RestBundle\Request\ParamReader($this->get('annotation_reader'));
+    }
+
+    /**
+     * Gets the 'fos_rest.routing.loader.controller' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\Routing\Loader\RestRouteLoader A FOS\RestBundle\Routing\Loader\RestRouteLoader instance.
+     */
+    protected function getFosRest_Routing_Loader_ControllerService()
+    {
+        return $this->services['fos_rest.routing.loader.controller'] = new \FOS\RestBundle\Routing\Loader\RestRouteLoader($this, $this->get('file_locator'), $this->get('controller_name_converter'), $this->get('fos_rest.routing.loader.reader.controller'), NULL);
+    }
+
+    /**
+     * Gets the 'fos_rest.routing.loader.processor' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\Routing\Loader\RestRouteProcessor A FOS\RestBundle\Routing\Loader\RestRouteProcessor instance.
+     */
+    protected function getFosRest_Routing_Loader_ProcessorService()
+    {
+        return $this->services['fos_rest.routing.loader.processor'] = new \FOS\RestBundle\Routing\Loader\RestRouteProcessor();
+    }
+
+    /**
+     * Gets the 'fos_rest.routing.loader.reader.action' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\Routing\Loader\Reader\RestActionReader A FOS\RestBundle\Routing\Loader\Reader\RestActionReader instance.
+     */
+    protected function getFosRest_Routing_Loader_Reader_ActionService()
+    {
+        return $this->services['fos_rest.routing.loader.reader.action'] = new \FOS\RestBundle\Routing\Loader\Reader\RestActionReader($this->get('annotation_reader'), $this->get('fos_rest.request.param_fetcher.reader'), $this->get('fos_rest.inflector.doctrine'), true, array('json' => false, 'xml' => false, 'html' => true));
+    }
+
+    /**
+     * Gets the 'fos_rest.routing.loader.reader.controller' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\Routing\Loader\Reader\RestControllerReader A FOS\RestBundle\Routing\Loader\Reader\RestControllerReader instance.
+     */
+    protected function getFosRest_Routing_Loader_Reader_ControllerService()
+    {
+        return $this->services['fos_rest.routing.loader.reader.controller'] = new \FOS\RestBundle\Routing\Loader\Reader\RestControllerReader($this->get('fos_rest.routing.loader.reader.action'), $this->get('annotation_reader'));
+    }
+
+    /**
+     * Gets the 'fos_rest.routing.loader.xml_collection' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\Routing\Loader\RestXmlCollectionLoader A FOS\RestBundle\Routing\Loader\RestXmlCollectionLoader instance.
+     */
+    protected function getFosRest_Routing_Loader_XmlCollectionService()
+    {
+        return $this->services['fos_rest.routing.loader.xml_collection'] = new \FOS\RestBundle\Routing\Loader\RestXmlCollectionLoader($this->get('file_locator'), $this->get('fos_rest.routing.loader.processor'));
+    }
+
+    /**
+     * Gets the 'fos_rest.routing.loader.yaml_collection' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\Routing\Loader\RestYamlCollectionLoader A FOS\RestBundle\Routing\Loader\RestYamlCollectionLoader instance.
+     */
+    protected function getFosRest_Routing_Loader_YamlCollectionService()
+    {
+        return $this->services['fos_rest.routing.loader.yaml_collection'] = new \FOS\RestBundle\Routing\Loader\RestYamlCollectionLoader($this->get('file_locator'), $this->get('fos_rest.routing.loader.processor'));
+    }
+
+    /**
+     * Gets the 'fos_rest.serializer' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\Serializer A JMS\Serializer\Serializer instance.
+     */
+    protected function getFosRest_SerializerService()
+    {
+        $a = new \Metadata\MetadataFactory(new \Metadata\Driver\LazyLoadingDriver($this, 'jms_serializer.metadata_driver'), 'Metadata\\ClassHierarchyMetadata', true);
+        $a->setCache(new \Metadata\Cache\FileCache('/home/notprathap/workspace/projectelephant/Server/app/cache/dev/jms_serializer'));
+
+        $b = new \JMS\Serializer\EventDispatcher\LazyEventDispatcher($this);
+        $b->setListeners(array('serializer.pre_serialize' => array(0 => array(0 => array(0 => 'jms_serializer.doctrine_proxy_subscriber', 1 => 'onPreSerialize'), 1 => NULL, 2 => NULL))));
+
+        return $this->services['fos_rest.serializer'] = new \JMS\Serializer\Serializer($a, $this->get('jms_serializer.handler_registry'), $this->get('jms_serializer.unserialize_object_constructor'), new \JMS\DiExtraBundle\DependencyInjection\Collection\LazyServiceMap($this, array('json' => 'jms_serializer.json_serialization_visitor', 'xml' => 'jms_serializer.xml_serialization_visitor', 'yml' => 'jms_serializer.yaml_serialization_visitor')), new \JMS\DiExtraBundle\DependencyInjection\Collection\LazyServiceMap($this, array('json' => 'jms_serializer.json_deserialization_visitor', 'xml' => 'jms_serializer.xml_deserialization_visitor')), $b);
+    }
+
+    /**
+     * Gets the 'fos_rest.view_handler' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return FOS\RestBundle\View\ViewHandler A FOS\RestBundle\View\ViewHandler instance.
+     */
+    protected function getFosRest_ViewHandlerService()
+    {
+        $this->services['fos_rest.view_handler'] = $instance = new \FOS\RestBundle\View\ViewHandler(array('json' => false, 'xml' => false, 'html' => true), 400, 204, false, array('html' => 302), 'twig');
+
+        $instance->setContainer($this);
+
+        return $instance;
+    }
+
+    /**
      * Gets the 'fos_user.change_password.form.factory' service.
      *
      * This service is shared.
@@ -1564,6 +1859,211 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'jms_serializer.array_collection_handler' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\Handler\ArrayCollectionHandler A JMS\Serializer\Handler\ArrayCollectionHandler instance.
+     */
+    protected function getJmsSerializer_ArrayCollectionHandlerService()
+    {
+        return $this->services['jms_serializer.array_collection_handler'] = new \JMS\Serializer\Handler\ArrayCollectionHandler();
+    }
+
+    /**
+     * Gets the 'jms_serializer.constraint_violation_handler' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\Handler\ConstraintViolationHandler A JMS\Serializer\Handler\ConstraintViolationHandler instance.
+     */
+    protected function getJmsSerializer_ConstraintViolationHandlerService()
+    {
+        return $this->services['jms_serializer.constraint_violation_handler'] = new \JMS\Serializer\Handler\ConstraintViolationHandler();
+    }
+
+    /**
+     * Gets the 'jms_serializer.datetime_handler' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\Handler\DateHandler A JMS\Serializer\Handler\DateHandler instance.
+     */
+    protected function getJmsSerializer_DatetimeHandlerService()
+    {
+        return $this->services['jms_serializer.datetime_handler'] = new \JMS\Serializer\Handler\DateHandler('Y-m-d\\TH:i:sO', 'Europe/London');
+    }
+
+    /**
+     * Gets the 'jms_serializer.doctrine_proxy_subscriber' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\EventDispatcher\Subscriber\DoctrineProxySubscriber A JMS\Serializer\EventDispatcher\Subscriber\DoctrineProxySubscriber instance.
+     */
+    protected function getJmsSerializer_DoctrineProxySubscriberService()
+    {
+        return $this->services['jms_serializer.doctrine_proxy_subscriber'] = new \JMS\Serializer\EventDispatcher\Subscriber\DoctrineProxySubscriber();
+    }
+
+    /**
+     * Gets the 'jms_serializer.form_error_handler' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\Handler\FormErrorHandler A JMS\Serializer\Handler\FormErrorHandler instance.
+     */
+    protected function getJmsSerializer_FormErrorHandlerService()
+    {
+        return $this->services['jms_serializer.form_error_handler'] = new \JMS\Serializer\Handler\FormErrorHandler($this->get('translator.default'));
+    }
+
+    /**
+     * Gets the 'jms_serializer.handler_registry' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\Handler\LazyHandlerRegistry A JMS\Serializer\Handler\LazyHandlerRegistry instance.
+     */
+    protected function getJmsSerializer_HandlerRegistryService()
+    {
+        return $this->services['jms_serializer.handler_registry'] = new \JMS\Serializer\Handler\LazyHandlerRegistry($this, array(2 => array('DateTime' => array('json' => array(0 => 'jms_serializer.datetime_handler', 1 => 'deserializeDateTimeFromjson'), 'xml' => array(0 => 'jms_serializer.datetime_handler', 1 => 'deserializeDateTimeFromxml'), 'yml' => array(0 => 'jms_serializer.datetime_handler', 1 => 'deserializeDateTimeFromyml')), 'ArrayCollection' => array('json' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'deserializeCollection'), 'xml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'deserializeCollection'), 'yml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'deserializeCollection')), 'Doctrine\\Common\\Collections\\ArrayCollection' => array('json' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'deserializeCollection'), 'xml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'deserializeCollection'), 'yml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'deserializeCollection')), 'Doctrine\\ORM\\PersistentCollection' => array('json' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'deserializeCollection'), 'xml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'deserializeCollection'), 'yml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'deserializeCollection')), 'Doctrine\\ODM\\MongoDB\\PersistentCollection' => array('json' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'deserializeCollection'), 'xml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'deserializeCollection'), 'yml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'deserializeCollection')), 'PhpCollection\\Sequence' => array('json' => array(0 => 'jms_serializer.php_collection_handler', 1 => 'deserializeSequence'), 'xml' => array(0 => 'jms_serializer.php_collection_handler', 1 => 'deserializeSequence'), 'yml' => array(0 => 'jms_serializer.php_collection_handler', 1 => 'deserializeSequence')), 'PhpCollection\\Map' => array('json' => array(0 => 'jms_serializer.php_collection_handler', 1 => 'deserializeMap'), 'xml' => array(0 => 'jms_serializer.php_collection_handler', 1 => 'deserializeMap'), 'yml' => array(0 => 'jms_serializer.php_collection_handler', 1 => 'deserializeMap'))), 1 => array('DateTime' => array('json' => array(0 => 'jms_serializer.datetime_handler', 1 => 'serializeDateTime'), 'xml' => array(0 => 'jms_serializer.datetime_handler', 1 => 'serializeDateTime'), 'yml' => array(0 => 'jms_serializer.datetime_handler', 1 => 'serializeDateTime')), 'DateInterval' => array('json' => array(0 => 'jms_serializer.datetime_handler', 1 => 'serializeDateInterval'), 'xml' => array(0 => 'jms_serializer.datetime_handler', 1 => 'serializeDateInterval'), 'yml' => array(0 => 'jms_serializer.datetime_handler', 1 => 'serializeDateInterval')), 'ArrayCollection' => array('json' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'serializeCollection'), 'xml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'serializeCollection'), 'yml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'serializeCollection')), 'Doctrine\\Common\\Collections\\ArrayCollection' => array('json' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'serializeCollection'), 'xml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'serializeCollection'), 'yml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'serializeCollection')), 'Doctrine\\ORM\\PersistentCollection' => array('json' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'serializeCollection'), 'xml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'serializeCollection'), 'yml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'serializeCollection')), 'Doctrine\\ODM\\MongoDB\\PersistentCollection' => array('json' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'serializeCollection'), 'xml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'serializeCollection'), 'yml' => array(0 => 'jms_serializer.array_collection_handler', 1 => 'serializeCollection')), 'PhpCollection\\Sequence' => array('json' => array(0 => 'jms_serializer.php_collection_handler', 1 => 'serializeSequence'), 'xml' => array(0 => 'jms_serializer.php_collection_handler', 1 => 'serializeSequence'), 'yml' => array(0 => 'jms_serializer.php_collection_handler', 1 => 'serializeSequence')), 'PhpCollection\\Map' => array('json' => array(0 => 'jms_serializer.php_collection_handler', 1 => 'serializeMap'), 'xml' => array(0 => 'jms_serializer.php_collection_handler', 1 => 'serializeMap'), 'yml' => array(0 => 'jms_serializer.php_collection_handler', 1 => 'serializeMap')), 'Symfony\\Component\\Form\\Form' => array('xml' => array(0 => 'jms_serializer.form_error_handler', 1 => 'serializeFormToxml'), 'json' => array(0 => 'jms_serializer.form_error_handler', 1 => 'serializeFormTojson'), 'yml' => array(0 => 'jms_serializer.form_error_handler', 1 => 'serializeFormToyml')), 'Symfony\\Component\\Form\\FormError' => array('xml' => array(0 => 'jms_serializer.form_error_handler', 1 => 'serializeFormErrorToxml'), 'json' => array(0 => 'jms_serializer.form_error_handler', 1 => 'serializeFormErrorTojson'), 'yml' => array(0 => 'jms_serializer.form_error_handler', 1 => 'serializeFormErrorToyml')), 'Symfony\\Component\\Validator\\ConstraintViolationList' => array('xml' => array(0 => 'jms_serializer.constraint_violation_handler', 1 => 'serializeListToxml'), 'json' => array(0 => 'jms_serializer.constraint_violation_handler', 1 => 'serializeListTojson'), 'yml' => array(0 => 'jms_serializer.constraint_violation_handler', 1 => 'serializeListToyml')), 'Symfony\\Component\\Validator\\ConstraintViolation' => array('xml' => array(0 => 'jms_serializer.constraint_violation_handler', 1 => 'serializeViolationToxml'), 'json' => array(0 => 'jms_serializer.constraint_violation_handler', 1 => 'serializeViolationTojson'), 'yml' => array(0 => 'jms_serializer.constraint_violation_handler', 1 => 'serializeViolationToyml')))));
+    }
+
+    /**
+     * Gets the 'jms_serializer.json_deserialization_visitor' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\JsonDeserializationVisitor A JMS\Serializer\JsonDeserializationVisitor instance.
+     */
+    protected function getJmsSerializer_JsonDeserializationVisitorService()
+    {
+        return $this->services['jms_serializer.json_deserialization_visitor'] = new \JMS\Serializer\JsonDeserializationVisitor($this->get('jms_serializer.naming_strategy'), $this->get('jms_serializer.unserialize_object_constructor'));
+    }
+
+    /**
+     * Gets the 'jms_serializer.json_serialization_visitor' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\JsonSerializationVisitor A JMS\Serializer\JsonSerializationVisitor instance.
+     */
+    protected function getJmsSerializer_JsonSerializationVisitorService()
+    {
+        $this->services['jms_serializer.json_serialization_visitor'] = $instance = new \JMS\Serializer\JsonSerializationVisitor($this->get('jms_serializer.naming_strategy'));
+
+        $instance->setOptions(0);
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'jms_serializer.metadata_driver' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\Metadata\Driver\DoctrineTypeDriver A JMS\Serializer\Metadata\Driver\DoctrineTypeDriver instance.
+     */
+    protected function getJmsSerializer_MetadataDriverService()
+    {
+        $a = new \Metadata\Driver\FileLocator(array('Symfony\\Bundle\\FrameworkBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Resources/config/serializer', 'Symfony\\Bundle\\SecurityBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bundle/SecurityBundle/Resources/config/serializer', 'Symfony\\Bundle\\TwigBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bundle/TwigBundle/Resources/config/serializer', 'Symfony\\Bundle\\MonologBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/monolog-bundle/Symfony/Bundle/MonologBundle/Resources/config/serializer', 'Symfony\\Bundle\\SwiftmailerBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/swiftmailer-bundle/Symfony/Bundle/SwiftmailerBundle/Resources/config/serializer', 'Symfony\\Bundle\\AsseticBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/assetic-bundle/Symfony/Bundle/AsseticBundle/Resources/config/serializer', 'Doctrine\\Bundle\\DoctrineBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/Resources/config/serializer', 'Sensio\\Bundle\\FrameworkExtraBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/Resources/config/serializer', 'FOS\\UserBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/serializer', 'CookBook\\UserBundle' => '/home/notprathap/workspace/projectelephant/Server/src/CookBook/UserBundle/Resources/config/serializer', 'FOS\\RestBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/rest-bundle/FOS/RestBundle/Resources/config/serializer', 'JMS\\SerializerBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/jms/serializer-bundle/JMS/SerializerBundle/Resources/config/serializer', 'Symfony\\Bundle\\WebProfilerBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/config/serializer', 'Sensio\\Bundle\\DistributionBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/config/serializer', 'Sensio\\Bundle\\GeneratorBundle' => '/home/notprathap/workspace/projectelephant/Server/vendor/sensio/generator-bundle/Sensio/Bundle/GeneratorBundle/Resources/config/serializer'));
+
+        return $this->services['jms_serializer.metadata_driver'] = new \JMS\Serializer\Metadata\Driver\DoctrineTypeDriver(new \Metadata\Driver\DriverChain(array(0 => new \JMS\Serializer\Metadata\Driver\YamlDriver($a), 1 => new \JMS\Serializer\Metadata\Driver\XmlDriver($a), 2 => new \JMS\Serializer\Metadata\Driver\PhpDriver($a), 3 => new \JMS\Serializer\Metadata\Driver\AnnotationDriver($this->get('annotation_reader')))), $this->get('doctrine'));
+    }
+
+    /**
+     * Gets the 'jms_serializer.naming_strategy' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\Naming\CacheNamingStrategy A JMS\Serializer\Naming\CacheNamingStrategy instance.
+     */
+    protected function getJmsSerializer_NamingStrategyService()
+    {
+        return $this->services['jms_serializer.naming_strategy'] = new \JMS\Serializer\Naming\CacheNamingStrategy(new \JMS\Serializer\Naming\SerializedNameAnnotationStrategy(new \JMS\Serializer\Naming\CamelCaseNamingStrategy('_', true)));
+    }
+
+    /**
+     * Gets the 'jms_serializer.php_collection_handler' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\Handler\PhpCollectionHandler A JMS\Serializer\Handler\PhpCollectionHandler instance.
+     */
+    protected function getJmsSerializer_PhpCollectionHandlerService()
+    {
+        return $this->services['jms_serializer.php_collection_handler'] = new \JMS\Serializer\Handler\PhpCollectionHandler();
+    }
+
+    /**
+     * Gets the 'jms_serializer.templating.helper.serializer' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\SerializerBundle\Templating\SerializerHelper A JMS\SerializerBundle\Templating\SerializerHelper instance.
+     */
+    protected function getJmsSerializer_Templating_Helper_SerializerService()
+    {
+        return $this->services['jms_serializer.templating.helper.serializer'] = new \JMS\SerializerBundle\Templating\SerializerHelper($this->get('fos_rest.serializer'));
+    }
+
+    /**
+     * Gets the 'jms_serializer.xml_deserialization_visitor' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\XmlDeserializationVisitor A JMS\Serializer\XmlDeserializationVisitor instance.
+     */
+    protected function getJmsSerializer_XmlDeserializationVisitorService()
+    {
+        $this->services['jms_serializer.xml_deserialization_visitor'] = $instance = new \JMS\Serializer\XmlDeserializationVisitor($this->get('jms_serializer.naming_strategy'), $this->get('jms_serializer.unserialize_object_constructor'));
+
+        $instance->setDoctypeWhitelist(array());
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'jms_serializer.xml_serialization_visitor' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\XmlSerializationVisitor A JMS\Serializer\XmlSerializationVisitor instance.
+     */
+    protected function getJmsSerializer_XmlSerializationVisitorService()
+    {
+        return $this->services['jms_serializer.xml_serialization_visitor'] = new \JMS\Serializer\XmlSerializationVisitor($this->get('jms_serializer.naming_strategy'));
+    }
+
+    /**
+     * Gets the 'jms_serializer.yaml_serialization_visitor' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return JMS\Serializer\YamlSerializationVisitor A JMS\Serializer\YamlSerializationVisitor instance.
+     */
+    protected function getJmsSerializer_YamlSerializationVisitorService()
+    {
+        return $this->services['jms_serializer.yaml_serialization_visitor'] = new \JMS\Serializer\YamlSerializationVisitor($this->get('jms_serializer.naming_strategy'));
+    }
+
+    /**
      * Gets the 'kernel' service.
      *
      * This service is shared.
@@ -1675,7 +2175,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getMonolog_Handler_MainService()
     {
-        return $this->services['monolog.handler.main'] = new \Monolog\Handler\StreamHandler('/home/notprathap/workspace/cookbook/2.3.0/app/logs/dev.log', 100, true);
+        return $this->services['monolog.handler.main'] = new \Monolog\Handler\StreamHandler('/home/notprathap/workspace/projectelephant/Server/app/logs/dev.log', 100, true);
     }
 
     /**
@@ -1879,7 +2379,7 @@ class appDevDebugProjectContainer extends Container
         $d = new \Doctrine\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector($this->get('doctrine'));
         $d->addLogger('default', $this->get('doctrine.dbal.logger.profiling.default'));
 
-        $this->services['profiler'] = $instance = new \Symfony\Component\HttpKernel\Profiler\Profiler(new \Symfony\Component\HttpKernel\Profiler\FileProfilerStorage('file:/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/profiler', '', '', 86400), $a);
+        $this->services['profiler'] = $instance = new \Symfony\Component\HttpKernel\Profiler\Profiler(new \Symfony\Component\HttpKernel\Profiler\FileProfilerStorage('file:/home/notprathap/workspace/projectelephant/Server/app/cache/dev/profiler', '', '', 86400), $a);
 
         $instance->add($c);
         $instance->add($this->get('data_collector.request'));
@@ -1963,7 +2463,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getRouterService()
     {
-        return $this->services['router'] = new \Symfony\Bundle\FrameworkBundle\Routing\Router($this, '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/assetic/routing.yml', array('cache_dir' => '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev', 'debug' => true, 'generator_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator', 'generator_base_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator', 'generator_dumper_class' => 'Symfony\\Component\\Routing\\Generator\\Dumper\\PhpGeneratorDumper', 'generator_cache_class' => 'appDevUrlGenerator', 'matcher_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher', 'matcher_base_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher', 'matcher_dumper_class' => 'Symfony\\Component\\Routing\\Matcher\\Dumper\\PhpMatcherDumper', 'matcher_cache_class' => 'appDevUrlMatcher', 'strict_requirements' => true), $this->get('router.request_context', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('monolog.logger.router', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+        return $this->services['router'] = new \Symfony\Bundle\FrameworkBundle\Routing\Router($this, '/home/notprathap/workspace/projectelephant/Server/app/cache/dev/assetic/routing.yml', array('cache_dir' => '/home/notprathap/workspace/projectelephant/Server/app/cache/dev', 'debug' => true, 'generator_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator', 'generator_base_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator', 'generator_dumper_class' => 'Symfony\\Component\\Routing\\Generator\\Dumper\\PhpGeneratorDumper', 'generator_cache_class' => 'appDevUrlGenerator', 'matcher_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher', 'matcher_base_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher', 'matcher_dumper_class' => 'Symfony\\Component\\Routing\\Matcher\\Dumper\\PhpMatcherDumper', 'matcher_cache_class' => 'appDevUrlMatcher', 'strict_requirements' => true), $this->get('router.request_context', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('monolog.logger.router', ContainerInterface::NULL_ON_INVALID_REFERENCE));
     }
 
     /**
@@ -2006,6 +2506,9 @@ class appDevDebugProjectContainer extends Container
         $d->addLoader(new \Symfony\Component\Routing\Loader\AnnotationDirectoryLoader($a, $c));
         $d->addLoader(new \Symfony\Component\Routing\Loader\AnnotationFileLoader($a, $c));
         $d->addLoader($c);
+        $d->addLoader($this->get('fos_rest.routing.loader.controller'));
+        $d->addLoader($this->get('fos_rest.routing.loader.yaml_collection'));
+        $d->addLoader($this->get('fos_rest.routing.loader.xml_collection'));
 
         return $this->services['routing.loader'] = new \Symfony\Bundle\FrameworkBundle\Routing\DelegatingLoader($this->get('controller_name_converter'), $this->get('monolog.logger.router', ContainerInterface::NULL_ON_INVALID_REFERENCE), $d);
     }
@@ -2089,7 +2592,7 @@ class appDevDebugProjectContainer extends Container
         $j = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($i, array('always_use_default_target_path' => false, 'default_target_path' => '/', 'login_path' => '/login', 'target_path_parameter' => '_target_path', 'use_referer' => false));
         $j->setProviderKey('main');
 
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($h, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('fos_user.user_provider.username')), 'main', $a, $c), 2 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, $this->get('security.authentication.session_strategy'), $i, 'main', $j, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $i, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, $this->get('form.csrf_provider')), 3 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '51b38898d4919', $a), 4 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $h, $f, $a)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $i, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $i, '/login', false), NULL, NULL, $a));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($h, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('fos_user.user_provider.username')), 'main', $a, $c), 2 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, $this->get('security.authentication.session_strategy'), $i, 'main', $j, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $i, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, $this->get('form.csrf_provider')), 3 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '51b393c823e19', $a), 4 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $h, $f, $a)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $i, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $i, '/login', false), NULL, NULL, $a));
     }
 
     /**
@@ -2115,7 +2618,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_SecureRandomService()
     {
-        return $this->services['security.secure_random'] = new \Symfony\Component\Security\Core\Util\SecureRandom('/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/secure_random.seed', $this->get('monolog.logger.security', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+        return $this->services['security.secure_random'] = new \Symfony\Component\Security\Core\Util\SecureRandom('/home/notprathap/workspace/projectelephant/Server/app/cache/dev/secure_random.seed', $this->get('monolog.logger.security', ContainerInterface::NULL_ON_INVALID_REFERENCE));
     }
 
     /**
@@ -2141,7 +2644,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSensio_Distribution_WebconfiguratorService()
     {
-        return $this->services['sensio.distribution.webconfigurator'] = new \Sensio\Bundle\DistributionBundle\Configurator\Configurator('/home/notprathap/workspace/cookbook/2.3.0/app');
+        return $this->services['sensio.distribution.webconfigurator'] = new \Sensio\Bundle\DistributionBundle\Configurator\Configurator('/home/notprathap/workspace/projectelephant/Server/app');
     }
 
     /**
@@ -2289,7 +2792,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSession_HandlerService()
     {
-        return $this->services['session.handler'] = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler('/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/sessions');
+        return $this->services['session.handler'] = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler('/home/notprathap/workspace/projectelephant/Server/app/cache/dev/sessions');
     }
 
     /**
@@ -2302,7 +2805,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSession_Storage_FilesystemService()
     {
-        return $this->services['session.storage.filesystem'] = new \Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage('/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/sessions');
+        return $this->services['session.storage.filesystem'] = new \Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage('/home/notprathap/workspace/projectelephant/Server/app/cache/dev/sessions');
     }
 
     /**
@@ -2535,7 +3038,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getTemplating_Helper_CodeService()
     {
-        return $this->services['templating.helper.code'] = new \Symfony\Bundle\FrameworkBundle\Templating\Helper\CodeHelper(NULL, '/home/notprathap/workspace/cookbook/2.3.0/app', 'UTF-8');
+        return $this->services['templating.helper.code'] = new \Symfony\Bundle\FrameworkBundle\Templating\Helper\CodeHelper(NULL, '/home/notprathap/workspace/projectelephant/Server/app', 'UTF-8');
     }
 
     /**
@@ -3010,184 +3513,184 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getTranslator_DefaultService()
     {
-        $this->services['translator.default'] = $instance = new \Symfony\Bundle\FrameworkBundle\Translation\Translator($this, new \Symfony\Component\Translation\MessageSelector(), array('translation.loader.php' => array(0 => 'php'), 'translation.loader.yml' => array(0 => 'yml'), 'translation.loader.xliff' => array(0 => 'xlf', 1 => 'xliff'), 'translation.loader.po' => array(0 => 'po'), 'translation.loader.mo' => array(0 => 'mo'), 'translation.loader.qt' => array(0 => 'ts'), 'translation.loader.csv' => array(0 => 'csv'), 'translation.loader.res' => array(0 => 'res'), 'translation.loader.dat' => array(0 => 'dat'), 'translation.loader.ini' => array(0 => 'ini')), array('cache_dir' => '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/translations', 'debug' => true));
+        $this->services['translator.default'] = $instance = new \Symfony\Bundle\FrameworkBundle\Translation\Translator($this, new \Symfony\Component\Translation\MessageSelector(), array('translation.loader.php' => array(0 => 'php'), 'translation.loader.yml' => array(0 => 'yml'), 'translation.loader.xliff' => array(0 => 'xlf', 1 => 'xliff'), 'translation.loader.po' => array(0 => 'po'), 'translation.loader.mo' => array(0 => 'mo'), 'translation.loader.qt' => array(0 => 'ts'), 'translation.loader.csv' => array(0 => 'csv'), 'translation.loader.res' => array(0 => 'res'), 'translation.loader.dat' => array(0 => 'dat'), 'translation.loader.ini' => array(0 => 'ini')), array('cache_dir' => '/home/notprathap/workspace/projectelephant/Server/app/cache/dev/translations', 'debug' => true));
 
         $instance->setFallbackLocales(array(0 => 'en'));
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.nl.xlf', 'nl', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.et.xlf', 'et', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.es.xlf', 'es', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.bg.xlf', 'bg', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.de.xlf', 'de', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.ar.xlf', 'ar', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sv.xlf', 'sv', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.da.xlf', 'da', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.cy.xlf', 'cy', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.fa.xlf', 'fa', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.ja.xlf', 'ja', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.cs.xlf', 'cs', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.ru.xlf', 'ru', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.lb.xlf', 'lb', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.pt.xlf', 'pt', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.no.xlf', 'no', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.id.xlf', 'id', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sr_Cyrl.xlf', 'sr_Cyrl', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.gl.xlf', 'gl', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.pt_BR.xlf', 'pt_BR', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.fi.xlf', 'fi', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.it.xlf', 'it', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.uk.xlf', 'uk', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.nb.xlf', 'nb', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.mn.xlf', 'mn', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.fr.xlf', 'fr', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.hy.xlf', 'hy', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.pl.xlf', 'pl', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.lt.xlf', 'lt', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.ca.xlf', 'ca', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.eu.xlf', 'eu', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sr_Latn.xlf', 'sr_Latn', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.zh_CN.xlf', 'zh_CN', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.tr.xlf', 'tr', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.af.xlf', 'af', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.ro.xlf', 'ro', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.hr.xlf', 'hr', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sq.xlf', 'sq', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.en.xlf', 'en', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.hu.xlf', 'hu', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.he.xlf', 'he', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sk.xlf', 'sk', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sl.xlf', 'sl', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.nl.xlf', 'nl', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.et.xlf', 'et', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.es.xlf', 'es', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.bg.xlf', 'bg', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.de.xlf', 'de', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ar.xlf', 'ar', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.sv.xlf', 'sv', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.da.xlf', 'da', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.fa.xlf', 'fa', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ja.xlf', 'ja', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.cs.xlf', 'cs', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ru.xlf', 'ru', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.lb.xlf', 'lb', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.pt.xlf', 'pt', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.id.xlf', 'id', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.sr_Cyrl.xlf', 'sr_Cyrl', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.gl.xlf', 'gl', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.pt_BR.xlf', 'pt_BR', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.fi.xlf', 'fi', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.it.xlf', 'it', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.nb.xlf', 'nb', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.mn.xlf', 'mn', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.fr.xlf', 'fr', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.lv.xlf', 'lv', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.hy.xlf', 'hy', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.pl.xlf', 'pl', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.lt.xlf', 'lt', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ua.xlf', 'ua', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ca.xlf', 'ca', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.eu.xlf', 'eu', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.sr_Latn.xlf', 'sr_Latn', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.zh_CN.xlf', 'zh_CN', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ro.xlf', 'ro', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.el.xlf', 'el', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.hr.xlf', 'hr', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.en.xlf', 'en', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.hu.xlf', 'hu', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.he.xlf', 'he', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.sk.xlf', 'sk', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.sl.xlf', 'sl', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.gl.xlf', 'gl', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.nl.xlf', 'nl', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.sr_Cyrl.xlf', 'sr_Cyrl', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.hu.xlf', 'hu', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.cs.xlf', 'cs', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.fa.xlf', 'fa', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.da.xlf', 'da', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.lb.xlf', 'lb', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.de.xlf', 'de', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.en.xlf', 'en', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.pl.xlf', 'pl', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.pt_PT.xlf', 'pt_PT', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ua.xlf', 'ua', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.sr_Latn.xlf', 'sr_Latn', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.sk.xlf', 'sk', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.es.xlf', 'es', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.pt_BR.xlf', 'pt_BR', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.no.xlf', 'no', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ru.xlf', 'ru', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.sv.xlf', 'sv', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ca.xlf', 'ca', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.tr.xlf', 'tr', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.fr.xlf', 'fr', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.it.xlf', 'it', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.sl.xlf', 'sl', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ro.xlf', 'ro', 'security');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ar.xlf', 'ar', 'security');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.en.yml', 'en', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.et.yml', 'et', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.tr.yml', 'tr', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.hr.yml', 'hr', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.it.yml', 'it', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.ja.yml', 'ja', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.id.yml', 'id', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.cs.yml', 'cs', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.nl.yml', 'nl', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.pl.yml', 'pl', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.zh_CN.yml', 'zh_CN', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.sl.yml', 'sl', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.sk.yml', 'sk', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.lb.yml', 'lb', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.pt_BR.yml', 'pt_BR', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.hu.yml', 'hu', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.pl.yml', 'pl', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.fr.yml', 'fr', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.nb.yml', 'nb', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.nl.yml', 'nl', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.sv.yml', 'sv', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.hu.yml', 'hu', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.es.yml', 'es', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.tr.yml', 'tr', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.hr.yml', 'hr', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.lt.yml', 'lt', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.en.yml', 'en', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.de.yml', 'de', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.fi.yml', 'fi', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.nb.yml', 'nb', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.lv.yml', 'lv', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.ro.yml', 'ro', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.fi.yml', 'fi', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.ar.yml', 'ar', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.ru.yml', 'ru', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.sr_Latn.yml', 'sr_Latn', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.fr.yml', 'fr', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.ca.yml', 'ca', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.pt.yml', 'pt', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.zh_CN.yml', 'zh_CN', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.bg.yml', 'bg', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.pt_PT.yml', 'pt_PT', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.da.yml', 'da', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.sl.yml', 'sl', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.uk.yml', 'uk', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.sr_Latn.yml', 'sr_Latn', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.fa.yml', 'fa', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.cs.yml', 'cs', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.lt.yml', 'lt', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.da.yml', 'da', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.id.yml', 'id', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.ja.yml', 'ja', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.ru.yml', 'ru', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.de.yml', 'de', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.fa.yml', 'fa', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.uk.yml', 'uk', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.pt_BR.yml', 'pt_BR', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.sv.yml', 'sv', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.lv.yml', 'lv', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.sk.yml', 'sk', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.bg.yml', 'bg', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.it.yml', 'it', 'validators');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.es.yml', 'es', 'FOSUserBundle');
-        $instance->addResource('yml', '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.ar.yml', 'ar', 'validators');
-        $instance->addResource('xlf', '/home/notprathap/workspace/cookbook/2.3.0/src/CookBook/UserBundle/Resources/translations/messages.fr.xlf', 'fr', 'messages');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.nl.xlf', 'nl', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.et.xlf', 'et', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.es.xlf', 'es', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.bg.xlf', 'bg', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.de.xlf', 'de', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.ar.xlf', 'ar', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sv.xlf', 'sv', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.da.xlf', 'da', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.cy.xlf', 'cy', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.fa.xlf', 'fa', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.ja.xlf', 'ja', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.cs.xlf', 'cs', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.ru.xlf', 'ru', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.lb.xlf', 'lb', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.pt.xlf', 'pt', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.no.xlf', 'no', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.id.xlf', 'id', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sr_Cyrl.xlf', 'sr_Cyrl', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.gl.xlf', 'gl', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.pt_BR.xlf', 'pt_BR', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.fi.xlf', 'fi', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.it.xlf', 'it', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.uk.xlf', 'uk', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.nb.xlf', 'nb', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.mn.xlf', 'mn', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.fr.xlf', 'fr', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.hy.xlf', 'hy', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.pl.xlf', 'pl', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.lt.xlf', 'lt', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.ca.xlf', 'ca', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.eu.xlf', 'eu', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sr_Latn.xlf', 'sr_Latn', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.zh_CN.xlf', 'zh_CN', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.tr.xlf', 'tr', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.af.xlf', 'af', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.ro.xlf', 'ro', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.hr.xlf', 'hr', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sq.xlf', 'sq', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.en.xlf', 'en', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.hu.xlf', 'hu', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.he.xlf', 'he', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sk.xlf', 'sk', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sl.xlf', 'sl', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.nl.xlf', 'nl', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.et.xlf', 'et', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.es.xlf', 'es', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.bg.xlf', 'bg', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.de.xlf', 'de', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ar.xlf', 'ar', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.sv.xlf', 'sv', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.da.xlf', 'da', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.fa.xlf', 'fa', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ja.xlf', 'ja', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.cs.xlf', 'cs', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ru.xlf', 'ru', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.lb.xlf', 'lb', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.pt.xlf', 'pt', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.id.xlf', 'id', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.sr_Cyrl.xlf', 'sr_Cyrl', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.gl.xlf', 'gl', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.pt_BR.xlf', 'pt_BR', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.fi.xlf', 'fi', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.it.xlf', 'it', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.nb.xlf', 'nb', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.mn.xlf', 'mn', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.fr.xlf', 'fr', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.lv.xlf', 'lv', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.hy.xlf', 'hy', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.pl.xlf', 'pl', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.lt.xlf', 'lt', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ua.xlf', 'ua', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ca.xlf', 'ca', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.eu.xlf', 'eu', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.sr_Latn.xlf', 'sr_Latn', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.zh_CN.xlf', 'zh_CN', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ro.xlf', 'ro', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.el.xlf', 'el', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.hr.xlf', 'hr', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.en.xlf', 'en', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.hu.xlf', 'hu', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.he.xlf', 'he', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.sk.xlf', 'sk', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.sl.xlf', 'sl', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.gl.xlf', 'gl', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.nl.xlf', 'nl', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.sr_Cyrl.xlf', 'sr_Cyrl', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.hu.xlf', 'hu', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.cs.xlf', 'cs', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.fa.xlf', 'fa', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.da.xlf', 'da', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.lb.xlf', 'lb', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.de.xlf', 'de', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.en.xlf', 'en', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.pl.xlf', 'pl', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.pt_PT.xlf', 'pt_PT', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ua.xlf', 'ua', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.sr_Latn.xlf', 'sr_Latn', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.sk.xlf', 'sk', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.es.xlf', 'es', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.pt_BR.xlf', 'pt_BR', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.no.xlf', 'no', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ru.xlf', 'ru', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.sv.xlf', 'sv', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ca.xlf', 'ca', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.tr.xlf', 'tr', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.fr.xlf', 'fr', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.it.xlf', 'it', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.sl.xlf', 'sl', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ro.xlf', 'ro', 'security');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ar.xlf', 'ar', 'security');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.en.yml', 'en', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.et.yml', 'et', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.tr.yml', 'tr', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.hr.yml', 'hr', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.it.yml', 'it', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.ja.yml', 'ja', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.id.yml', 'id', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.cs.yml', 'cs', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.nl.yml', 'nl', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.pl.yml', 'pl', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.zh_CN.yml', 'zh_CN', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.sl.yml', 'sl', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.sk.yml', 'sk', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.lb.yml', 'lb', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.pt_BR.yml', 'pt_BR', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.hu.yml', 'hu', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.pl.yml', 'pl', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.fr.yml', 'fr', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.nb.yml', 'nb', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.nl.yml', 'nl', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.sv.yml', 'sv', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.hu.yml', 'hu', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.es.yml', 'es', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.tr.yml', 'tr', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.hr.yml', 'hr', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.lt.yml', 'lt', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.en.yml', 'en', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.de.yml', 'de', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.fi.yml', 'fi', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.nb.yml', 'nb', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.lv.yml', 'lv', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.ro.yml', 'ro', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.fi.yml', 'fi', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.ar.yml', 'ar', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.ru.yml', 'ru', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.sr_Latn.yml', 'sr_Latn', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.fr.yml', 'fr', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.ca.yml', 'ca', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.pt.yml', 'pt', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.zh_CN.yml', 'zh_CN', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.bg.yml', 'bg', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.pt_PT.yml', 'pt_PT', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.da.yml', 'da', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.sl.yml', 'sl', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.uk.yml', 'uk', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.sr_Latn.yml', 'sr_Latn', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.fa.yml', 'fa', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.cs.yml', 'cs', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.lt.yml', 'lt', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.da.yml', 'da', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.id.yml', 'id', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.ja.yml', 'ja', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.ru.yml', 'ru', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.de.yml', 'de', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.fa.yml', 'fa', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.uk.yml', 'uk', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.pt_BR.yml', 'pt_BR', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.sv.yml', 'sv', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.lv.yml', 'lv', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.sk.yml', 'sk', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.bg.yml', 'bg', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.it.yml', 'it', 'validators');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/FOSUserBundle.es.yml', 'es', 'FOSUserBundle');
+        $instance->addResource('yml', '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations/validators.ar.yml', 'ar', 'validators');
+        $instance->addResource('xlf', '/home/notprathap/workspace/projectelephant/Server/src/CookBook/UserBundle/Resources/translations/messages.fr.xlf', 'fr', 'messages');
 
         return $instance;
     }
@@ -3202,14 +3705,14 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getTwigService()
     {
-        $this->services['twig'] = $instance = new \Twig_Environment($this->get('twig.loader'), array('debug' => true, 'strict_variables' => true, 'exception_controller' => 'twig.controller.exception:showAction', 'autoescape_service' => NULL, 'autoescape_service_method' => NULL, 'cache' => '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/twig', 'charset' => 'UTF-8', 'paths' => array()));
+        $this->services['twig'] = $instance = new \Twig_Environment($this->get('twig.loader'), array('debug' => true, 'strict_variables' => true, 'exception_controller' => 'twig.controller.exception:showAction', 'autoescape_service' => NULL, 'autoescape_service_method' => NULL, 'cache' => '/home/notprathap/workspace/projectelephant/Server/app/cache/dev/twig', 'charset' => 'UTF-8', 'paths' => array()));
 
         $instance->addExtension(new \Symfony\Bundle\SecurityBundle\Twig\Extension\LogoutUrlExtension($this->get('templating.helper.logout_url')));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\SecurityExtension($this->get('security.context', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\TranslationExtension($this->get('translator.default')));
         $instance->addExtension(new \Symfony\Bundle\TwigBundle\Extension\AssetsExtension($this));
         $instance->addExtension(new \Symfony\Bundle\TwigBundle\Extension\ActionsExtension($this));
-        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\CodeExtension(NULL, '/home/notprathap/workspace/cookbook/2.3.0/app', 'UTF-8'));
+        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\CodeExtension(NULL, '/home/notprathap/workspace/projectelephant/Server/app', 'UTF-8'));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\RoutingExtension($this->get('router')));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\YamlExtension());
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\HttpKernelExtension($this->get('fragment.handler')));
@@ -3217,6 +3720,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addExtension(new \Twig_Extension_Debug());
         $instance->addExtension(new \Symfony\Bundle\AsseticBundle\Twig\AsseticExtension($this->get('assetic.asset_factory'), $this->get('templating.name_parser'), true, array(), array(), $this->get('assetic.value_supplier.default', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
         $instance->addExtension(new \Doctrine\Bundle\DoctrineBundle\Twig\DoctrineExtension());
+        $instance->addExtension(new \JMS\Serializer\Twig\SerializerExtension($this->get('fos_rest.serializer')));
         $instance->addGlobal('app', $this->get('templating.globals'));
 
         return $instance;
@@ -3260,17 +3764,17 @@ class appDevDebugProjectContainer extends Container
     {
         $this->services['twig.loader'] = $instance = new \Symfony\Bundle\TwigBundle\Loader\FilesystemLoader($this->get('templating.locator'), $this->get('templating.name_parser'));
 
-        $instance->addPath('/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Resources/views', 'Framework');
-        $instance->addPath('/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Bundle/SecurityBundle/Resources/views', 'Security');
-        $instance->addPath('/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Bundle/TwigBundle/Resources/views', 'Twig');
-        $instance->addPath('/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/swiftmailer-bundle/Symfony/Bundle/SwiftmailerBundle/Resources/views', 'Swiftmailer');
-        $instance->addPath('/home/notprathap/workspace/cookbook/2.3.0/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/Resources/views', 'Doctrine');
-        $instance->addPath('/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/views', 'FOSUser');
-        $instance->addPath('/home/notprathap/workspace/cookbook/2.3.0/src/CookBook/UserBundle/Resources/views', 'CookBookUser');
-        $instance->addPath('/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views', 'WebProfiler');
-        $instance->addPath('/home/notprathap/workspace/cookbook/2.3.0/vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/views', 'SensioDistribution');
-        $instance->addPath('/home/notprathap/workspace/cookbook/2.3.0/app/Resources/views');
-        $instance->addPath('/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form');
+        $instance->addPath('/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Resources/views', 'Framework');
+        $instance->addPath('/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bundle/SecurityBundle/Resources/views', 'Security');
+        $instance->addPath('/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bundle/TwigBundle/Resources/views', 'Twig');
+        $instance->addPath('/home/notprathap/workspace/projectelephant/Server/vendor/symfony/swiftmailer-bundle/Symfony/Bundle/SwiftmailerBundle/Resources/views', 'Swiftmailer');
+        $instance->addPath('/home/notprathap/workspace/projectelephant/Server/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/Resources/views', 'Doctrine');
+        $instance->addPath('/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/views', 'FOSUser');
+        $instance->addPath('/home/notprathap/workspace/projectelephant/Server/src/CookBook/UserBundle/Resources/views', 'CookBookUser');
+        $instance->addPath('/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views', 'WebProfiler');
+        $instance->addPath('/home/notprathap/workspace/projectelephant/Server/vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/views', 'SensioDistribution');
+        $instance->addPath('/home/notprathap/workspace/projectelephant/Server/app/Resources/views');
+        $instance->addPath('/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form');
 
         return $instance;
     }
@@ -3397,6 +3901,36 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the fos_rest.inflector service alias.
+     *
+     * @return FOS\RestBundle\Util\Inflector\DoctrineInflector An instance of the fos_rest.inflector.doctrine service
+     */
+    protected function getFosRest_InflectorService()
+    {
+        return $this->get('fos_rest.inflector.doctrine');
+    }
+
+    /**
+     * Gets the fos_rest.router service alias.
+     *
+     * @return Symfony\Bundle\FrameworkBundle\Routing\Router An instance of the router service
+     */
+    protected function getFosRest_RouterService()
+    {
+        return $this->get('router');
+    }
+
+    /**
+     * Gets the fos_rest.templating service alias.
+     *
+     * @return Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine An instance of the templating service
+     */
+    protected function getFosRest_TemplatingService()
+    {
+        return $this->get('templating');
+    }
+
+    /**
      * Gets the fos_user.util.username_canonicalizer service alias.
      *
      * @return FOS\UserBundle\Util\Canonicalizer An instance of the fos_user.util.email_canonicalizer service
@@ -3404,6 +3938,26 @@ class appDevDebugProjectContainer extends Container
     protected function getFosUser_Util_UsernameCanonicalizerService()
     {
         return $this->get('fos_user.util.email_canonicalizer');
+    }
+
+    /**
+     * Gets the jms_serializer service alias.
+     *
+     * @return JMS\Serializer\Serializer An instance of the fos_rest.serializer service
+     */
+    protected function getJmsSerializerService()
+    {
+        return $this->get('fos_rest.serializer');
+    }
+
+    /**
+     * Gets the serializer service alias.
+     *
+     * @return JMS\Serializer\Serializer An instance of the fos_rest.serializer service
+     */
+    protected function getSerializerService()
+    {
+        return $this->get('fos_rest.serializer');
     }
 
     /**
@@ -3456,7 +4010,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_AssetFactoryService()
     {
-        $this->services['assetic.asset_factory'] = $instance = new \Symfony\Bundle\AsseticBundle\Factory\AssetFactory($this->get('kernel'), $this, $this->getParameterBag(), '/home/notprathap/workspace/cookbook/2.3.0/app/../web', true);
+        $this->services['assetic.asset_factory'] = $instance = new \Symfony\Bundle\AsseticBundle\Factory\AssetFactory($this->get('kernel'), $this, $this->getParameterBag(), '/home/notprathap/workspace/projectelephant/Server/app/../web', true);
 
         $instance->addWorker(new \Symfony\Bundle\AsseticBundle\Factory\Worker\UseControllerWorker());
 
@@ -3477,7 +4031,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_CacheService()
     {
-        return $this->services['assetic.cache'] = new \Assetic\Cache\FilesystemCache('/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/assetic/assets');
+        return $this->services['assetic.cache'] = new \Assetic\Cache\FilesystemCache('/home/notprathap/workspace/projectelephant/Server/app/cache/dev/assetic/assets');
     }
 
     /**
@@ -3549,6 +4103,23 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'jms_serializer.unserialize_object_constructor' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * This service is private.
+     * If you want to be able to request this service from the container directly,
+     * make it public, otherwise you might end up with broken code.
+     *
+     * @return JMS\Serializer\Construction\UnserializeObjectConstructor A JMS\Serializer\Construction\UnserializeObjectConstructor instance.
+     */
+    protected function getJmsSerializer_UnserializeObjectConstructorService()
+    {
+        return $this->services['jms_serializer.unserialize_object_constructor'] = new \JMS\Serializer\Construction\UnserializeObjectConstructor();
+    }
+
+    /**
      * Gets the 'router.request_context' service.
      *
      * This service is shared.
@@ -3596,7 +4167,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('fos_user.user_provider.username'), $this->get('security.user_checker'), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('51b38898d4919')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('fos_user.user_provider.username'), $this->get('security.user_checker'), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('51b393c823e19')), true);
 
         $instance->setEventDispatcher($this->get('event_dispatcher'));
 
@@ -3685,7 +4256,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getTemplating_LocatorService()
     {
-        return $this->services['templating.locator'] = new \Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator($this->get('file_locator'), '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev');
+        return $this->services['templating.locator'] = new \Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator($this->get('file_locator'), '/home/notprathap/workspace/projectelephant/Server/app/cache/dev');
     }
 
     /**
@@ -3702,7 +4273,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getValidator_Mapping_ClassMetadataFactoryService()
     {
-        return $this->services['validator.mapping.class_metadata_factory'] = new \Symfony\Component\Validator\Mapping\ClassMetadataFactory(new \Symfony\Component\Validator\Mapping\Loader\LoaderChain(array(0 => new \Symfony\Component\Validator\Mapping\Loader\AnnotationLoader($this->get('annotation_reader')), 1 => new \Symfony\Component\Validator\Mapping\Loader\StaticMethodLoader(), 2 => new \Symfony\Component\Validator\Mapping\Loader\XmlFilesLoader(array(0 => '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/config/validation.xml', 1 => '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/validation.xml', 2 => '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/validation/orm.xml')), 3 => new \Symfony\Component\Validator\Mapping\Loader\YamlFilesLoader(array()))), NULL);
+        return $this->services['validator.mapping.class_metadata_factory'] = new \Symfony\Component\Validator\Mapping\ClassMetadataFactory(new \Symfony\Component\Validator\Mapping\Loader\LoaderChain(array(0 => new \Symfony\Component\Validator\Mapping\Loader\AnnotationLoader($this->get('annotation_reader')), 1 => new \Symfony\Component\Validator\Mapping\Loader\StaticMethodLoader(), 2 => new \Symfony\Component\Validator\Mapping\Loader\XmlFilesLoader(array(0 => '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/config/validation.xml', 1 => '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/validation.xml', 2 => '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/validation/orm.xml')), 3 => new \Symfony\Component\Validator\Mapping\Loader\YamlFilesLoader(array()))), NULL);
     }
 
     /**
@@ -3756,12 +4327,12 @@ class appDevDebugProjectContainer extends Container
     protected function getDefaultParameters()
     {
         return array(
-            'kernel.root_dir' => '/home/notprathap/workspace/cookbook/2.3.0/app',
+            'kernel.root_dir' => '/home/notprathap/workspace/projectelephant/Server/app',
             'kernel.environment' => 'dev',
             'kernel.debug' => true,
             'kernel.name' => 'app',
-            'kernel.cache_dir' => '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev',
-            'kernel.logs_dir' => '/home/notprathap/workspace/cookbook/2.3.0/app/logs',
+            'kernel.cache_dir' => '/home/notprathap/workspace/projectelephant/Server/app/cache/dev',
+            'kernel.logs_dir' => '/home/notprathap/workspace/projectelephant/Server/app/logs',
             'kernel.bundles' => array(
                 'FrameworkBundle' => 'Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle',
                 'SecurityBundle' => 'Symfony\\Bundle\\SecurityBundle\\SecurityBundle',
@@ -3773,6 +4344,8 @@ class appDevDebugProjectContainer extends Container
                 'SensioFrameworkExtraBundle' => 'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle',
                 'FOSUserBundle' => 'FOS\\UserBundle\\FOSUserBundle',
                 'CookBookUserBundle' => 'CookBook\\UserBundle\\CookBookUserBundle',
+                'FOSRestBundle' => 'FOS\\RestBundle\\FOSRestBundle',
+                'JMSSerializerBundle' => 'JMS\\SerializerBundle\\JMSSerializerBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',
                 'SensioGeneratorBundle' => 'Sensio\\Bundle\\GeneratorBundle\\SensioGeneratorBundle',
@@ -3837,7 +4410,7 @@ class appDevDebugProjectContainer extends Container
             'debug.errors_logger_listener.class' => 'Symfony\\Component\\HttpKernel\\EventListener\\ErrorsLoggerListener',
             'debug.event_dispatcher.class' => 'Symfony\\Component\\HttpKernel\\Debug\\TraceableEventDispatcher',
             'debug.stopwatch.class' => 'Symfony\\Component\\Stopwatch\\Stopwatch',
-            'debug.container.dump' => '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/appDevDebugProjectContainer.xml',
+            'debug.container.dump' => '/home/notprathap/workspace/projectelephant/Server/app/cache/dev/appDevDebugProjectContainer.xml',
             'debug.controller_resolver.class' => 'Symfony\\Component\\HttpKernel\\Controller\\TraceableControllerResolver',
             'kernel.secret' => 'ThisTokenIsNotSoSecretChangeIt',
             'kernel.http_method_override' => true,
@@ -3856,7 +4429,7 @@ class appDevDebugProjectContainer extends Container
             'session.storage.options' => array(
 
             ),
-            'session.save_path' => '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/sessions',
+            'session.save_path' => '/home/notprathap/workspace/projectelephant/Server/app/cache/dev/sessions',
             'form.resolved_type_factory.class' => 'Symfony\\Component\\Form\\ResolvedFormTypeFactory',
             'form.registry.class' => 'Symfony\\Component\\Form\\FormRegistry',
             'form.factory.class' => 'Symfony\\Component\\Form\\FormFactory',
@@ -3912,9 +4485,9 @@ class appDevDebugProjectContainer extends Container
             'validator.mapping.loader.yaml_files_loader.class' => 'Symfony\\Component\\Validator\\Mapping\\Loader\\YamlFilesLoader',
             'validator.validator_factory.class' => 'Symfony\\Bundle\\FrameworkBundle\\Validator\\ConstraintValidatorFactory',
             'validator.mapping.loader.xml_files_loader.mapping_files' => array(
-                0 => '/home/notprathap/workspace/cookbook/2.3.0/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/config/validation.xml',
-                1 => '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/validation.xml',
-                2 => '/home/notprathap/workspace/cookbook/2.3.0/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/validation/orm.xml',
+                0 => '/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/config/validation.xml',
+                1 => '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/validation.xml',
+                2 => '/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/validation/orm.xml',
             ),
             'validator.mapping.loader.yaml_files_loader.mapping_files' => array(
 
@@ -3933,7 +4506,7 @@ class appDevDebugProjectContainer extends Container
             'data_collector.router.class' => 'Symfony\\Bundle\\FrameworkBundle\\DataCollector\\RouterDataCollector',
             'profiler_listener.only_exceptions' => false,
             'profiler_listener.only_master_requests' => false,
-            'profiler.storage.dsn' => 'file:/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/profiler',
+            'profiler.storage.dsn' => 'file:/home/notprathap/workspace/projectelephant/Server/app/cache/dev/profiler',
             'profiler.storage.username' => '',
             'profiler.storage.password' => '',
             'profiler.storage.lifetime' => 86400,
@@ -3957,7 +4530,7 @@ class appDevDebugProjectContainer extends Container
             'router.request_context.host' => 'localhost',
             'router.request_context.scheme' => 'http',
             'router.request_context.base_url' => '',
-            'router.resource' => '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/assetic/routing.yml',
+            'router.resource' => '/home/notprathap/workspace/projectelephant/Server/app/cache/dev/assetic/routing.yml',
             'router.cache_class_prefix' => 'appDev',
             'request_listener.http_port' => 80,
             'request_listener.https_port' => 443,
@@ -4069,7 +4642,7 @@ class appDevDebugProjectContainer extends Container
                 'exception_controller' => 'twig.controller.exception:showAction',
                 'autoescape_service' => NULL,
                 'autoescape_service_method' => NULL,
-                'cache' => '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/twig',
+                'cache' => '/home/notprathap/workspace/projectelephant/Server/app/cache/dev/twig',
                 'charset' => 'UTF-8',
                 'paths' => array(
 
@@ -4123,7 +4696,7 @@ class appDevDebugProjectContainer extends Container
             'swiftmailer.plugin.blackhole.class' => 'Swift_Plugins_BlackholePlugin',
             'swiftmailer.spool.memory.class' => 'Swift_MemorySpool',
             'swiftmailer.email_sender.listener.class' => 'Symfony\\Bundle\\SwiftmailerBundle\\EventListener\\EmailSenderListener',
-            'swiftmailer.spool.memory.path' => '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/swiftmailer/spool',
+            'swiftmailer.spool.memory.path' => '/home/notprathap/workspace/projectelephant/Server/app/cache/dev/swiftmailer/spool',
             'swiftmailer.spool.enabled' => true,
             'swiftmailer.sender_address' => NULL,
             'swiftmailer.single_address' => NULL,
@@ -4145,7 +4718,7 @@ class appDevDebugProjectContainer extends Container
             'assetic.node.paths' => array(
 
             ),
-            'assetic.cache_dir' => '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/assetic',
+            'assetic.cache_dir' => '/home/notprathap/workspace/projectelephant/Server/app/cache/dev/assetic',
             'assetic.bundles' => array(
 
             ),
@@ -4157,8 +4730,8 @@ class appDevDebugProjectContainer extends Container
             'assetic.debug' => true,
             'assetic.use_controller' => true,
             'assetic.enable_profiler' => false,
-            'assetic.read_from' => '/home/notprathap/workspace/cookbook/2.3.0/app/../web',
-            'assetic.write_to' => '/home/notprathap/workspace/cookbook/2.3.0/app/../web',
+            'assetic.read_from' => '/home/notprathap/workspace/projectelephant/Server/app/../web',
+            'assetic.write_to' => '/home/notprathap/workspace/projectelephant/Server/app/../web',
             'assetic.variables' => array(
 
             ),
@@ -4231,7 +4804,7 @@ class appDevDebugProjectContainer extends Container
             'doctrine.orm.naming_strategy.default.class' => 'Doctrine\\ORM\\Mapping\\DefaultNamingStrategy',
             'doctrine.orm.naming_strategy.underscore.class' => 'Doctrine\\ORM\\Mapping\\UnderscoreNamingStrategy',
             'doctrine.orm.auto_generate_proxy_classes' => true,
-            'doctrine.orm.proxy_dir' => '/home/notprathap/workspace/cookbook/2.3.0/app/cache/dev/doctrine/orm/Proxies',
+            'doctrine.orm.proxy_dir' => '/home/notprathap/workspace/projectelephant/Server/app/cache/dev/doctrine/orm/Proxies',
             'doctrine.orm.proxy_namespace' => 'Proxies',
             'sensio_framework_extra.view.guesser.class' => 'Sensio\\Bundle\\FrameworkExtraBundle\\Templating\\TemplateGuesser',
             'sensio_framework_extra.controller.listener.class' => 'Sensio\\Bundle\\FrameworkExtraBundle\\EventListener\\ControllerListener',
@@ -4287,6 +4860,88 @@ class appDevDebugProjectContainer extends Container
                 0 => 'ResetPassword',
                 1 => 'Default',
             ),
+            'fos_rest.serializer.exclusion_strategy.version' => '',
+            'fos_rest.serializer.exclusion_strategy.groups' => '',
+            'fos_rest.routing.loader.controller.class' => 'FOS\\RestBundle\\Routing\\Loader\\RestRouteLoader',
+            'fos_rest.routing.loader.yaml_collection.class' => 'FOS\\RestBundle\\Routing\\Loader\\RestYamlCollectionLoader',
+            'fos_rest.routing.loader.xml_collection.class' => 'FOS\\RestBundle\\Routing\\Loader\\RestXmlCollectionLoader',
+            'fos_rest.routing.loader.processor.class' => 'FOS\\RestBundle\\Routing\\Loader\\RestRouteProcessor',
+            'fos_rest.routing.loader.reader.controller.class' => 'FOS\\RestBundle\\Routing\\Loader\\Reader\\RestControllerReader',
+            'fos_rest.routing.loader.reader.action.class' => 'FOS\\RestBundle\\Routing\\Loader\\Reader\\RestActionReader',
+            'fos_rest.format_negotiator.class' => 'FOS\\Rest\\Util\\FormatNegotiator',
+            'fos_rest.inflector.class' => 'FOS\\RestBundle\\Util\\Inflector\\DoctrineInflector',
+            'fos_rest.request.param_fetcher.class' => 'FOS\\RestBundle\\Request\\ParamFetcher',
+            'fos_rest.request.param_fetcher.reader.class' => 'FOS\\RestBundle\\Request\\ParamReader',
+            'fos_rest.cache_dir' => '/home/notprathap/workspace/projectelephant/Server/app/cache/dev/fos_rest',
+            'fos_rest.formats' => array(
+                'json' => false,
+                'xml' => false,
+                'html' => true,
+            ),
+            'fos_rest.default_engine' => 'twig',
+            'fos_rest.force_redirects' => array(
+                'html' => 302,
+            ),
+            'fos_rest.failed_validation' => 400,
+            'fos_rest.empty_content' => 204,
+            'fos_rest.serialize_null' => false,
+            'fos_rest.routing.loader.default_format' => NULL,
+            'fos_rest.routing.loader.include_format' => true,
+            'fos_rest.exception.codes' => array(
+
+            ),
+            'fos_rest.exception.messages' => array(
+
+            ),
+            'fos_rest.decoders' => array(
+                'json' => 'fos_rest.decoder.json',
+                'xml' => 'fos_rest.decoder.xml',
+            ),
+            'fos_rest.default_priorities' => array(
+                0 => 'html',
+                1 => '*/*',
+            ),
+            'fos_rest.prefer_extension' => true,
+            'fos_rest.fallback_format' => 'html',
+            'fos_rest.mime_types' => array(
+
+            ),
+            'jms_serializer.metadata.file_locator.class' => 'Metadata\\Driver\\FileLocator',
+            'jms_serializer.metadata.annotation_driver.class' => 'JMS\\Serializer\\Metadata\\Driver\\AnnotationDriver',
+            'jms_serializer.metadata.chain_driver.class' => 'Metadata\\Driver\\DriverChain',
+            'jms_serializer.metadata.yaml_driver.class' => 'JMS\\Serializer\\Metadata\\Driver\\YamlDriver',
+            'jms_serializer.metadata.xml_driver.class' => 'JMS\\Serializer\\Metadata\\Driver\\XmlDriver',
+            'jms_serializer.metadata.php_driver.class' => 'JMS\\Serializer\\Metadata\\Driver\\PhpDriver',
+            'jms_serializer.metadata.doctrine_type_driver.class' => 'JMS\\Serializer\\Metadata\\Driver\\DoctrineTypeDriver',
+            'jms_serializer.metadata.lazy_loading_driver.class' => 'Metadata\\Driver\\LazyLoadingDriver',
+            'jms_serializer.metadata.metadata_factory.class' => 'Metadata\\MetadataFactory',
+            'jms_serializer.metadata.cache.file_cache.class' => 'Metadata\\Cache\\FileCache',
+            'jms_serializer.event_dispatcher.class' => 'JMS\\Serializer\\EventDispatcher\\LazyEventDispatcher',
+            'jms_serializer.camel_case_naming_strategy.class' => 'JMS\\Serializer\\Naming\\CamelCaseNamingStrategy',
+            'jms_serializer.serialized_name_annotation_strategy.class' => 'JMS\\Serializer\\Naming\\SerializedNameAnnotationStrategy',
+            'jms_serializer.cache_naming_strategy.class' => 'JMS\\Serializer\\Naming\\CacheNamingStrategy',
+            'jms_serializer.doctrine_object_constructor.class' => 'JMS\\Serializer\\Construction\\DoctrineObjectConstructor',
+            'jms_serializer.unserialize_object_constructor.class' => 'JMS\\Serializer\\Construction\\UnserializeObjectConstructor',
+            'jms_serializer.version_exclusion_strategy.class' => 'JMS\\Serializer\\Exclusion\\VersionExclusionStrategy',
+            'jms_serializer.serializer.class' => 'JMS\\Serializer\\Serializer',
+            'jms_serializer.twig_extension.class' => 'JMS\\Serializer\\Twig\\SerializerExtension',
+            'jms_serializer.templating.helper.class' => 'JMS\\SerializerBundle\\Templating\\SerializerHelper',
+            'jms_serializer.json_serialization_visitor.class' => 'JMS\\Serializer\\JsonSerializationVisitor',
+            'jms_serializer.json_serialization_visitor.options' => 0,
+            'jms_serializer.json_deserialization_visitor.class' => 'JMS\\Serializer\\JsonDeserializationVisitor',
+            'jms_serializer.xml_serialization_visitor.class' => 'JMS\\Serializer\\XmlSerializationVisitor',
+            'jms_serializer.xml_deserialization_visitor.class' => 'JMS\\Serializer\\XmlDeserializationVisitor',
+            'jms_serializer.xml_deserialization_visitor.doctype_whitelist' => array(
+
+            ),
+            'jms_serializer.yaml_serialization_visitor.class' => 'JMS\\Serializer\\YamlSerializationVisitor',
+            'jms_serializer.handler_registry.class' => 'JMS\\Serializer\\Handler\\LazyHandlerRegistry',
+            'jms_serializer.datetime_handler.class' => 'JMS\\Serializer\\Handler\\DateHandler',
+            'jms_serializer.array_collection_handler.class' => 'JMS\\Serializer\\Handler\\ArrayCollectionHandler',
+            'jms_serializer.php_collection_handler.class' => 'JMS\\Serializer\\Handler\\PhpCollectionHandler',
+            'jms_serializer.form_error_handler.class' => 'JMS\\Serializer\\Handler\\FormErrorHandler',
+            'jms_serializer.constraint_violation_handler.class' => 'JMS\\Serializer\\Handler\\ConstraintViolationHandler',
+            'jms_serializer.doctrine_proxy_subscriber.class' => 'JMS\\Serializer\\EventDispatcher\\Subscriber\\DoctrineProxySubscriber',
             'web_profiler.controller.profiler.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController',
             'web_profiler.controller.router.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\RouterController',
             'web_profiler.controller.exception.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ExceptionController',

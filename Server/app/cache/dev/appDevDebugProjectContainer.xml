@@ -4,7 +4,7 @@
     <parameter key="kernel.root_dir">/home/notprathap/workspace/projectelephant/Server/app</parameter>
     <parameter key="kernel.environment">dev</parameter>
     <parameter key="kernel.debug">true</parameter>
-    <parameter key="kernel.name">app</parameter>
+    <parameter key="kernel.name">ap_</parameter>
     <parameter key="kernel.cache_dir">/home/notprathap/workspace/projectelephant/Server/app/cache/dev</parameter>
     <parameter key="kernel.logs_dir">/home/notprathap/workspace/projectelephant/Server/app/logs</parameter>
     <parameter key="kernel.bundles" type="collection">
@@ -17,7 +17,7 @@
       <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
       <parameter key="FOSUserBundle">FOS\UserBundle\FOSUserBundle</parameter>
-      <parameter key="CookBookUserBundle">CookBook\UserBundle\CookBookUserBundle</parameter>
+      <parameter key="ServerUserBundle">Server\UserBundle\ServerUserBundle</parameter>
       <parameter key="FOSRestBundle">FOS\RestBundle\FOSRestBundle</parameter>
       <parameter key="JMSSerializerBundle">JMS\SerializerBundle\JMSSerializerBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
@@ -480,7 +480,7 @@
     <parameter key="fos_user.storage">orm</parameter>
     <parameter key="fos_user.firewall_name">main</parameter>
     <parameter key="fos_user.model_manager_name">null</parameter>
-    <parameter key="fos_user.model.user.class">CookBook\UserBundle\Entity\User</parameter>
+    <parameter key="fos_user.model.user.class">Server\UserBundle\Entity\User</parameter>
     <parameter key="fos_user.template.engine">twig</parameter>
     <parameter key="fos_user.profile.form.type">fos_user_profile</parameter>
     <parameter key="fos_user.profile.form.name">fos_user_profile_form</parameter>
@@ -1996,7 +1996,7 @@
       </call>
       <call method="addResource">
         <argument>xlf</argument>
-        <argument>/home/notprathap/workspace/projectelephant/Server/src/CookBook/UserBundle/Resources/translations/messages.fr.xlf</argument>
+        <argument>/home/notprathap/workspace/projectelephant/Server/src/Server/UserBundle/Resources/translations/messages.fr.xlf</argument>
         <argument>fr</argument>
         <argument>messages</argument>
       </call>
@@ -2760,7 +2760,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>51b393c823e19</argument>
+            <argument>51b39db5ef097</argument>
           </service>
         </argument>
       </argument>
@@ -2965,7 +2965,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>51b393c823e19</argument>
+            <argument>51b39db5ef097</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -3376,7 +3376,7 @@
           <call method="setEntityNamespaces">
             <argument type="collection">
               <argument key="FOSUserBundle">FOS\UserBundle\Entity</argument>
-              <argument key="CookBookUserBundle">CookBook\UserBundle\Entity</argument>
+              <argument key="ServerUserBundle">Server\UserBundle\Entity</argument>
             </argument>
           </call>
           <call method="setMetadataCacheImpl">
@@ -3427,11 +3427,11 @@
                     <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
                       <argument type="service" id="annotation_reader"/>
                       <argument type="collection">
-                        <argument>/home/notprathap/workspace/projectelephant/Server/src/CookBook/UserBundle/Entity</argument>
+                        <argument>/home/notprathap/workspace/projectelephant/Server/src/Server/UserBundle/Entity</argument>
                       </argument>
                     </service>
                   </argument>
-                  <argument>CookBook\UserBundle\Entity</argument>
+                  <argument>Server\UserBundle\Entity</argument>
                 </call>
                 <call method="addDriver">
                   <argument type="service">
@@ -3557,7 +3557,7 @@
     </service>
     <service id="fos_user.profile.form.type" class="FOS\UserBundle\Form\Type\ProfileFormType">
       <tag name="form.type" alias="fos_user_profile"/>
-      <argument>CookBook\UserBundle\Entity\User</argument>
+      <argument>Server\UserBundle\Entity\User</argument>
     </service>
     <service id="fos_user.registration.form.factory" class="FOS\UserBundle\Form\Factory\FormFactory">
       <argument type="service" id="form.factory"/>
@@ -3570,7 +3570,7 @@
     </service>
     <service id="fos_user.registration.form.type" class="FOS\UserBundle\Form\Type\RegistrationFormType">
       <tag name="form.type" alias="fos_user_registration"/>
-      <argument>CookBook\UserBundle\Entity\User</argument>
+      <argument>Server\UserBundle\Entity\User</argument>
     </service>
     <service id="fos_user.change_password.form.factory" class="FOS\UserBundle\Form\Factory\FormFactory">
       <argument type="service" id="form.factory"/>
@@ -3583,7 +3583,7 @@
     </service>
     <service id="fos_user.change_password.form.type" class="FOS\UserBundle\Form\Type\ChangePasswordFormType">
       <tag name="form.type" alias="fos_user_change_password"/>
-      <argument>CookBook\UserBundle\Entity\User</argument>
+      <argument>Server\UserBundle\Entity\User</argument>
     </service>
     <service id="fos_user.resetting.form.factory" class="FOS\UserBundle\Form\Factory\FormFactory">
       <argument type="service" id="form.factory"/>
@@ -3596,7 +3596,7 @@
     </service>
     <service id="fos_user.resetting.form.type" class="FOS\UserBundle\Form\Type\ResettingFormType">
       <tag name="form.type" alias="fos_user_resetting"/>
-      <argument>CookBook\UserBundle\Entity\User</argument>
+      <argument>Server\UserBundle\Entity\User</argument>
     </service>
     <service id="fos_user.listener.resetting" class="FOS\UserBundle\EventListener\ResettingListener">
       <tag name="kernel.event_subscriber"/>
@@ -4326,8 +4326,8 @@
         <argument>FOSUser</argument>
       </call>
       <call method="addPath">
-        <argument>/home/notprathap/workspace/projectelephant/Server/src/CookBook/UserBundle/Resources/views</argument>
-        <argument>CookBookUser</argument>
+        <argument>/home/notprathap/workspace/projectelephant/Server/src/Server/UserBundle/Resources/views</argument>
+        <argument>ServerUser</argument>
       </call>
       <call method="addPath">
         <argument>/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views</argument>
@@ -4451,7 +4451,7 @@
           <argument>null</argument>
         </service>
       </argument>
-      <argument>CookBook\UserBundle\Entity\User</argument>
+      <argument>Server\UserBundle\Entity\User</argument>
     </service>
     <service id="fos_rest.serializer" class="JMS\Serializer\Serializer">
       <argument type="service">
@@ -4549,7 +4549,7 @@
                       <argument key="Doctrine\Bundle\DoctrineBundle">/home/notprathap/workspace/projectelephant/Server/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/Resources/config/serializer</argument>
                       <argument key="Sensio\Bundle\FrameworkExtraBundle">/home/notprathap/workspace/projectelephant/Server/vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/Resources/config/serializer</argument>
                       <argument key="FOS\UserBundle">/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/serializer</argument>
-                      <argument key="CookBook\UserBundle">/home/notprathap/workspace/projectelephant/Server/src/CookBook/UserBundle/Resources/config/serializer</argument>
+                      <argument key="Server\UserBundle">/home/notprathap/workspace/projectelephant/Server/src/Server/UserBundle/Resources/config/serializer</argument>
                       <argument key="FOS\RestBundle">/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/rest-bundle/FOS/RestBundle/Resources/config/serializer</argument>
                       <argument key="JMS\SerializerBundle">/home/notprathap/workspace/projectelephant/Server/vendor/jms/serializer-bundle/JMS/SerializerBundle/Resources/config/serializer</argument>
                       <argument key="Symfony\Bundle\WebProfilerBundle">/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/config/serializer</argument>
@@ -4574,7 +4574,7 @@
                       <argument key="Doctrine\Bundle\DoctrineBundle">/home/notprathap/workspace/projectelephant/Server/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/Resources/config/serializer</argument>
                       <argument key="Sensio\Bundle\FrameworkExtraBundle">/home/notprathap/workspace/projectelephant/Server/vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/Resources/config/serializer</argument>
                       <argument key="FOS\UserBundle">/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/serializer</argument>
-                      <argument key="CookBook\UserBundle">/home/notprathap/workspace/projectelephant/Server/src/CookBook/UserBundle/Resources/config/serializer</argument>
+                      <argument key="Server\UserBundle">/home/notprathap/workspace/projectelephant/Server/src/Server/UserBundle/Resources/config/serializer</argument>
                       <argument key="FOS\RestBundle">/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/rest-bundle/FOS/RestBundle/Resources/config/serializer</argument>
                       <argument key="JMS\SerializerBundle">/home/notprathap/workspace/projectelephant/Server/vendor/jms/serializer-bundle/JMS/SerializerBundle/Resources/config/serializer</argument>
                       <argument key="Symfony\Bundle\WebProfilerBundle">/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/config/serializer</argument>
@@ -4599,7 +4599,7 @@
                       <argument key="Doctrine\Bundle\DoctrineBundle">/home/notprathap/workspace/projectelephant/Server/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/Resources/config/serializer</argument>
                       <argument key="Sensio\Bundle\FrameworkExtraBundle">/home/notprathap/workspace/projectelephant/Server/vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/Resources/config/serializer</argument>
                       <argument key="FOS\UserBundle">/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/serializer</argument>
-                      <argument key="CookBook\UserBundle">/home/notprathap/workspace/projectelephant/Server/src/CookBook/UserBundle/Resources/config/serializer</argument>
+                      <argument key="Server\UserBundle">/home/notprathap/workspace/projectelephant/Server/src/Server/UserBundle/Resources/config/serializer</argument>
                       <argument key="FOS\RestBundle">/home/notprathap/workspace/projectelephant/Server/vendor/friendsofsymfony/rest-bundle/FOS/RestBundle/Resources/config/serializer</argument>
                       <argument key="JMS\SerializerBundle">/home/notprathap/workspace/projectelephant/Server/vendor/jms/serializer-bundle/JMS/SerializerBundle/Resources/config/serializer</argument>
                       <argument key="Symfony\Bundle\WebProfilerBundle">/home/notprathap/workspace/projectelephant/Server/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/config/serializer</argument>

@@ -1,6 +1,6 @@
 <?php
 
-namespace CookBook\UserBundle\Tests\Controller;
+namespace Server\UserBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

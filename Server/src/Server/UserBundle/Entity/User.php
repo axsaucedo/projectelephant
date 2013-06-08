@@ -1,5 +1,5 @@
 <?php
-namespace CookBook\UserBundle\Entity;
+namespace Server\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;

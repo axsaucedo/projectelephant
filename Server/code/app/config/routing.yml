@@ -1,3 +1,7 @@
+server_web:
+    resource: "@ServerWebBundle/Resources/config/routing.yml"
+    prefix:   /
+
 server_api:
     resource: "@ServerApiBundle/Resources/config/routing.yml"
     prefix:   /

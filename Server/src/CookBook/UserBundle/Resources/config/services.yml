@@ -1,0 +1,7 @@
+parameters:
+#    cookbook_user.example.class: cookbook\UserBundle\Example
+
+services:
+#    cookbook_user.example:
+#        class: %cookbook_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

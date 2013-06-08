@@ -1,4 +1,5 @@
-var audioContext = new webkitAudioContext();
+var audioContext = 'AudioContext' in window ? new AudioContext() :
+    (('webkitAudioContext' in window) ? new webkitAudioContext() : null);
 var audioInput = null,
     realAudioInput = null,
     inputPoint = null,
@@ -139,10 +140,16 @@ function gotStream(stream) {
 }
 
 function initAudio() {
-    if (!navigator.webkitGetUserMedia)
+
+    navigator.getMedia = ( navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
+    
+    if (!navigator.getMedia)
         return(alert("Error: getUserMedia not supported!"));
 
-    navigator.webkitGetUserMedia({audio:true}, gotStream, function(e) {
+    navigator.getMedia({audio:true}, gotStream, function(e) {
             alert('Error getting audio');
             console.log(e);
         });

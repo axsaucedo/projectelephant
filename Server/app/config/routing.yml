@@ -1,0 +1,4 @@
+cookbook_user:
+    resource: "@CookBookUserBundle/Resources/config/routing.yml"
+    prefix:   /
+

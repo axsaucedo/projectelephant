@@ -1,0 +1,5 @@
+_assetic:
+    resource: .
+    type: assetic
+_app:
+    resource: /home/notprathap/workspace/cookbook/2.3.0/app/config/routing_dev.yml

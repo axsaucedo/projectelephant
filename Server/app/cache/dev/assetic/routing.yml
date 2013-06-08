@@ -1,5 +1,0 @@
-_assetic:
-    resource: .
-    type: assetic
-_app:
-    resource: /home/notprathap/workspace/projectelephant/Server/app/config/routing_dev.yml

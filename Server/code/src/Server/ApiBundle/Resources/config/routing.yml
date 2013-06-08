@@ -1,0 +1,3 @@
+server_api_homepage:
+    pattern:  /api/initiate/
+    defaults: { _controller: ServerApiBundle:Default:index }

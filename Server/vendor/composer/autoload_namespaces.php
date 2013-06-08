@@ -27,6 +27,7 @@ return array(
     'JMS\\AopBundle' => array($vendorDir . '/jms/aop-bundle'),
     'JMS\\' => array($vendorDir . '/jms/parser-lib/src'),
     'Incenteev\\ParameterHandler' => array($vendorDir . '/incenteev/composer-parameter-handler'),
+    'FOS\\UserBundle' => array($vendorDir . '/friendsofsymfony/user-bundle'),
     'FOS\\RestBundle' => array($vendorDir . '/friendsofsymfony/rest-bundle'),
     'FOS\\Rest' => array($vendorDir . '/friendsofsymfony/rest'),
     'Doctrine\\ORM' => array($vendorDir . '/doctrine/orm/lib'),

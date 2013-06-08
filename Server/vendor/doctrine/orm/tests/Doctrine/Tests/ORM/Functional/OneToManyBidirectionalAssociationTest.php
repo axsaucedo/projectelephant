@@ -22,7 +22,7 @@ class OneToManyBidirectionalAssociationTest extends \Doctrine\Tests\OrmFunctiona
         $this->useModelSet('ecommerce');
         parent::setUp();
         $this->product = new ECommerceProduct();
-        $this->product->setName('Doctrine Cookbook');
+        $this->product->setName('Doctrine Server');
         $this->firstFeature = new ECommerceFeature();
         $this->firstFeature->setDescription('Model writing tutorial');
         $this->secondFeature = new ECommerceFeature();
@@ -117,7 +117,7 @@ class OneToManyBidirectionalAssociationTest extends \Doctrine\Tests\OrmFunctiona
         $this->assertInstanceOf('Doctrine\ORM\Proxy\Proxy', $product);
         $this->assertInstanceOf('Doctrine\Tests\Models\ECommerce\ECommerceProduct', $product);
         $this->assertFalse($product->__isInitialized__);
-        $this->assertSame('Doctrine Cookbook', $product->getName());
+        $this->assertSame('Doctrine Server', $product->getName());
         $this->assertTrue($product->__isInitialized__);
     }
 
@@ -132,7 +132,7 @@ class OneToManyBidirectionalAssociationTest extends \Doctrine\Tests\OrmFunctiona
         $product = $features[0]->getProduct();
         $this->assertNotInstanceOf('Doctrine\ORM\Proxy\Proxy', $product);
         $this->assertInstanceOf('Doctrine\Tests\Models\ECommerce\ECommerceProduct', $product);
-        $this->assertSame('Doctrine Cookbook', $product->getName());
+        $this->assertSame('Doctrine Server', $product->getName());
 
         $this->assertFalse($product->getFeatures()->isInitialized());
 

@@ -1,3 +1,7 @@
+cookbook_user_homepage:
+    pattern:  /
+    defaults: { _controller: CookBookUserBundle:Default:index }
+
 #FOS
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

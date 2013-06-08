@@ -24,17 +24,10 @@ abstract class ClassUtils
 {
     public static function getUserClass($className)
     {
-<<<<<<< HEAD
     	if (false === $pos = strrpos($className, '\\'.NamingStrategyInterface::SEPARATOR.'\\')) {
     		return $className;
     	}
 
-=======
-    	if (false === $pos = strrpos($className, '\\'.NamingStrategyInterface::SEPARATOR.'\\')) {
-    		return $className;
-    	}
-
->>>>>>> 1aea908cb90f13274c7cf69d28a4d03849565ad9
     	return substr($className, $pos + NamingStrategyInterface::SEPARATOR_LENGTH + 2);
     }
 

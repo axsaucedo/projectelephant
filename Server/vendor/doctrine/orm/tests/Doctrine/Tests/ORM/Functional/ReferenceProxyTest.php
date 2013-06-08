@@ -31,7 +31,7 @@ class ReferenceProxyTest extends \Doctrine\Tests\OrmFunctionalTestCase
     public function createProduct()
     {
         $product = new ECommerceProduct();
-        $product->setName('Doctrine Cookbook');
+        $product->setName('Doctrine Server');
         $this->_em->persist($product);
 
         $this->_em->flush();
@@ -43,7 +43,7 @@ class ReferenceProxyTest extends \Doctrine\Tests\OrmFunctionalTestCase
     public function createAuction()
     {
         $event = new CompanyAuction();
-        $event->setData('Doctrine Cookbook');
+        $event->setData('Doctrine Server');
         $this->_em->persist($event);
 
         $this->_em->flush();
@@ -57,7 +57,7 @@ class ReferenceProxyTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $id = $this->createProduct();
 
         $productProxy = $this->_em->getReference('Doctrine\Tests\Models\ECommerce\ECommerceProduct', array('id' => $id));
-        $this->assertEquals('Doctrine Cookbook', $productProxy->getName());
+        $this->assertEquals('Doctrine Server', $productProxy->getName());
     }
 
     /**
@@ -84,7 +84,7 @@ class ReferenceProxyTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $entity2 = $this->_em->find('Doctrine\Tests\Models\ECommerce\ECommerceProduct' , $id);
 
         $this->assertSame($entity, $entity2);
-        $this->assertEquals('Doctrine Cookbook', $entity2->getName());
+        $this->assertEquals('Doctrine Server', $entity2->getName());
     }
 
     /**
@@ -101,11 +101,11 @@ class ReferenceProxyTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $clone = clone $entity;
 
         $this->assertEquals($id, $entity->getId());
-        $this->assertEquals('Doctrine Cookbook', $entity->getName());
+        $this->assertEquals('Doctrine Server', $entity->getName());
 
         $this->assertFalse($this->_em->contains($clone), "Cloning a reference proxy should return an unmanaged/detached entity.");
         $this->assertEquals($id, $clone->getId(), "Cloning a reference proxy should return same id.");
-        $this->assertEquals('Doctrine Cookbook', $clone->getName(), "Cloning a reference proxy should return same product name.");
+        $this->assertEquals('Doctrine Server', $clone->getName(), "Cloning a reference proxy should return same product name.");
 
         // domain logic, Product::__clone sets isCloned public property
         $this->assertTrue($clone->isCloned);
@@ -136,13 +136,13 @@ class ReferenceProxyTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         /* @var $entity Doctrine\Tests\Models\ECommerce\ECommerceProduct */
         $entity = $this->_em->getReference('Doctrine\Tests\Models\ECommerce\ECommerceProduct' , $id);
-        $entity->setName('Doctrine 2 Cookbook');
+        $entity->setName('Doctrine 2 Server');
 
         $this->_em->flush();
         $this->_em->clear();
 
         $entity = $this->_em->getReference('Doctrine\Tests\Models\ECommerce\ECommerceProduct' , $id);
-        $this->assertEquals('Doctrine 2 Cookbook', $entity->getName());
+        $this->assertEquals('Doctrine 2 Server', $entity->getName());
     }
 
     /**
@@ -157,7 +157,7 @@ class ReferenceProxyTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->assertFalse($entity->wakeUp);
 
-        $entity->setName('Doctrine 2 Cookbook');
+        $entity->setName('Doctrine 2 Server');
 
         $this->assertTrue($entity->wakeUp, "Loading the proxy should call __wakeup().");
     }
@@ -192,7 +192,7 @@ class ReferenceProxyTest extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testDoNotInitializeProxyOnGettingTheIdentifierAndReturnTheRightType()
     {
         $product = new ECommerceProduct();
-        $product->setName('Doctrine Cookbook');
+        $product->setName('Doctrine Server');
 
         $shipping = new ECommerceShipping();
         $shipping->setDays(1);
@@ -220,7 +220,7 @@ class ReferenceProxyTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $entity = $this->_em->getReference('Doctrine\Tests\Models\ECommerce\ECommerceProduct' , $id);
 
         $this->assertFalse($entity->__isInitialized__, "Pre-Condition: Object is unitialized proxy.");
-        $this->assertEquals('Doctrine Cookbook', $entity->getName());
+        $this->assertEquals('Doctrine Server', $entity->getName());
         $this->assertTrue($entity->__isInitialized__, "Getting something other than the identifier initializes the proxy.");
     }
 

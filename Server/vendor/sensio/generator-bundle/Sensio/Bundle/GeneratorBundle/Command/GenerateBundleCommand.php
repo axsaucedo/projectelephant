@@ -154,7 +154,7 @@ EOT
                 'sub-namespaces, and it should end with the bundle name itself',
                 '(which must have <comment>Bundle</comment> as a suffix).',
                 '',
-                'See http://symfony.com/doc/current/cookbook/bundles/best_practices.html#index-1 for more',
+                'See http://symfony.com/doc/current/Server/bundles/best_practices.html#index-1 for more',
                 'details on bundle naming conventions.',
                 '',
                 'Use <comment>/</comment> instead of <comment>\\ </comment> for the namespace delimiter to avoid any problem.',

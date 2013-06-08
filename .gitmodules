@@ -1,0 +1,3 @@
+[submodule "mirror-api"]
+	path = mirror-api
+	url = https://github.com/Scarygami/mirror-api.git

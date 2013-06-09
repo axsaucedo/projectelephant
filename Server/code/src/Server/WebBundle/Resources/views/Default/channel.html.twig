@@ -53,7 +53,7 @@ rel="stylesheet" />
 	        	value = event.results[i][0].transcript;
 	       
 	        	if (value) {
-		            $.get('/Server/code/web/app_dev.php/api/postMessage'
+		            $.get('../api/postMessage'
 		            	, {		name : name
 		            		,	channel : channel 
 		            		,	message : event.results[i][0].transcript})

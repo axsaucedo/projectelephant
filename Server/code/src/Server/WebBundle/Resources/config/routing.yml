@@ -1,0 +1,7 @@
+server_web_homepage:
+    pattern:  /home/
+    defaults: { _controller: ServerWebBundle:Default:index }
+
+server_web_channel:
+    pattern:  /channel/
+    defaults: { _controller: ServerWebBundle:Default:channel }

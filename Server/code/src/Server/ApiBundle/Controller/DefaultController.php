@@ -101,7 +101,7 @@ class DefaultController extends Controller
                 $data[] = $arMessage;
             }    
         }
-        
-        return new JsonResponse($data);
+        $arData = array_reverse($data);
+        return new JsonResponse($arData);
     }
 }

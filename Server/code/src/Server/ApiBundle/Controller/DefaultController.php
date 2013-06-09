@@ -34,6 +34,7 @@ class DefaultController extends Controller
         $name = $request->request->get('name', 'anon');
         $message = $request->request->get('message', '');
         $channel = $request->request->get('channel', 0);
+        var_dump($name);
         
         $objChannel = new Channel();
         $objChannel->setName($name);

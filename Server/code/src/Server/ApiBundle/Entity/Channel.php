@@ -31,4 +31,83 @@ class Channel  {
 	* @ORM\Column(type="integer")
 	*/
 	protected $channel;
+
+    /**
+     * Get messageid
+     *
+     * @return integer 
+     */
+    public function getMessageid()
+    {
+        return $this->messageid;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Channel
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set message
+     *
+     * @param string $message
+     * @return Channel
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    
+        return $this;
+    }
+
+    /**
+     * Get message
+     *
+     * @return string 
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * Set channel
+     *
+     * @param integer $channel
+     * @return Channel
+     */
+    public function setChannel($channel)
+    {
+        $this->channel = $channel;
+    
+        return $this;
+    }
+
+    /**
+     * Get channel
+     *
+     * @return integer 
+     */
+    public function getChannel()
+    {
+        return $this->channel;
+    }
 }

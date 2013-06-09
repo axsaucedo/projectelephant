@@ -9,11 +9,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function initiateAction()
+    public function initiateAction(Request $request)
     {
         //return $this->render('ServerApiBundle:Default:index.html.twig', array('name' => rand()));
 
+        $name = $request->request->get('name', 'anon');
+
         $code = $this->encode(rand());
+
+        $objChannel = new Channel();
+        $objChannel->setName($name);
+        $objChannel->setMessage("");
+        $objChannel->setChannel($code);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($objChannel);
+        $em->flush();
 
         return new JsonResponse('http://localhost/Server/code/web/app_dev.php/api/code/'.$code);
     }

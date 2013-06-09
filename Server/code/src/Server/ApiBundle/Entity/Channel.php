@@ -28,7 +28,7 @@ class Channel  {
 	protected $message;
 
 	/**
-	* @ORM\Column(type="integer")
+	* @ORM\Column(type="string", length=100)
 	*/
 	protected $channel;
 

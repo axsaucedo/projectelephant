@@ -17,10 +17,17 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 	</style>
 	<script>
 	function getCode() {
+		var name = "john";
 		$.get('../api/initiate'
-			, {name : "john"})
+			, {name : name})
 			.success(function(data) {
-			window.location.replace('../channel/' + data);
+			var url = '../channel/';
+			var form = $('<form action="' + url + '" method="post">' +
+			  '<input type="text" name="code" value="' + data + '" />' +
+			  '<input type="text" name="name" value="' + name + '" />' +
+			  '</form>');
+			$('body').append(form);
+			$(form).submit();
 		});
 	}
 	</script>
@@ -29,11 +36,12 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 <body>
 	<h1> Chat </h1>
 	<div class="chat"></div>
-	<form action="../api/postMessage" method="post">
-		Name: <input type="text" name="name"/>
+	<form action="/Server/code/web/app_dev.php/api/postMessage" method="GET" >
+		Name: <input type="text" name="name" value="{{app.request.get('name')}}" readonly/>
+		<br>
 		Message: <input type="text" name="message"/>
-		<input type="hidden" name="channel" value="1234"/>
-		<input type="submit" name="submit" class="btn" id="submit_btn" value="Send"/>
+		<input type="hidden" name="channel" value="{{app.request.get('code')}}"/>
+		<input type="submit"/>
 	</form>
 </body>
 </html>

@@ -17,17 +17,24 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 	</style>
 	<script>
 	function getCode() {
-		var name = "john";
+<<<<<<< HEAD
 		$.get('../api/initiate'
+			, {name : "john"})
+			.success(function(data) {
+			window.location.replace('../channel/' + data);
+=======
+		var name = "john";
+		$.get('/Server/code/web/app_dev.php/api/initiate'
 			, {name : name})
 			.success(function(data) {
-			var url = '../channel/';
+			var url = '/Server/code/web/app_dev.php/channel/';
 			var form = $('<form action="' + url + '" method="post">' +
 			  '<input type="hidden" name="code" value="' + data + '" />' +
 			  '<input type="hidden" name="name" value="' + name + '" />' +
 			  '</form>');
 			$('body').append(form);
 			$(form).submit();
+>>>>>>> 92d20693b6b763eb94ca157a4e5b1fc31b297310
 		});
 	}
 	</script>

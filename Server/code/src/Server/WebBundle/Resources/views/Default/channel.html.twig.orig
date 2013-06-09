@@ -17,25 +17,43 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 	</style>
 	<script>
 	function getCode() {
-		var name = "john";
+<<<<<<< HEAD
 		$.get('../api/initiate'
+			, {name : "john"})
+			.success(function(data) {
+			window.location.replace('../channel/' + data);
+=======
+		var name = "john";
+		$.get('/Server/code/web/app_dev.php/api/initiate'
 			, {name : name})
 			.success(function(data) {
-			var url = '../channel/';
+			var url = '/Server/code/web/app_dev.php/channel/';
 			var form = $('<form action="' + url + '" method="post">' +
-			  '<input type="hidden" name="code" value="' + data + '" />' +
-			  '<input type="hidden" name="name" value="' + name + '" />' +
+			  '<input type="text" name="code" value="' + data + '" />' +
+			  '<input type="text" name="name" value="' + name + '" />' +
 			  '</form>');
 			$('body').append(form);
 			$(form).submit();
+>>>>>>> 92d20693b6b763eb94ca157a4e5b1fc31b297310
 		});
 	}
 	</script>
 </head>
 
 <body>
-	<h1> Welcome to Elephant </h1>
-	<button class="btn" onclick="getCode();return false;">Click Me!</button>
-	<h2 class="result"></h2>	
+	<h1> Chat </h1>
+	<div class="chat"></div>
+<<<<<<< HEAD
+	<form action="../api/postMessage" method="post">
+		Name: <input type="text" name="name"/>
+=======
+	<form action="/Server/code/web/app_dev.php/api/postMessage" method="GET" >
+		Name: <input type="text" name="name" value="{{app.request.get('name')}}" readonly/>
+		<br>
+>>>>>>> 92d20693b6b763eb94ca157a4e5b1fc31b297310
+		Message: <input type="text" name="message"/>
+		<input type="hidden" name="channel" value="{{app.request.get('code')}}"/>
+		<input type="submit"/>
+	</form>
 </body>
 </html>

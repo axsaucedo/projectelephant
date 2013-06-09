@@ -93,10 +93,13 @@ class DefaultController extends Controller
         
         $data = array();
         foreach($messages as $message){
-            $arMessage['name'] = $message->getName();
-            $arMessage['message'] = $message->getMessage();
-            $arMessage['channel'] = $message->getChannel();
-            $data[] = $arMessage;    
+            if ($message->getMessage())
+            {
+                $arMessage['name'] = $message->getName();
+                $arMessage['message'] = $message->getMessage();
+                $arMessage['channel'] = $message->getChannel();
+                $data[] = $arMessage;
+            }    
         }
         
         return new JsonResponse($data);

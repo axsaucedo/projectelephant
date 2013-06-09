@@ -18,10 +18,10 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 	<script>
 	function getCode() {
 		var name = "john";
-		$.get('/Server/code/web/app_dev.php/api/initiate'
+		$.get('../api/initiate'
 			, {name : name})
 			.success(function(data) {
-			var url = '/Server/code/web/app_dev.php/channel/';
+			var url = '../channel/';
 			var form = $('<form action="' + url + '" method="post">' +
 			  '<input type="text" name="code" value="' + data + '" />' +
 			  '<input type="text" name="name" value="' + name + '" />' +
@@ -69,7 +69,7 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 	</script>
 	<div class="chat"></div>
 	<button onclick="start();">start!</button>
-	<form action="/Server/code/web/app_dev.php/api/postMessage" method="GET" >
+	<form action="../api/postMessage" method="GET" >
 		Name: <input type="text" name="name" value="{{app.request.get('name')}}" readonly/>
 		<br>
 		Message: <input type="text" name="message"/>

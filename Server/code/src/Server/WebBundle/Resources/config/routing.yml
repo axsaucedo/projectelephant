@@ -3,5 +3,5 @@ server_web_homepage:
     defaults: { _controller: ServerWebBundle:Default:index }
 
 server_web_channel:
-    pattern:  /channel/{code}
+    pattern:  /channel/
     defaults: { _controller: ServerWebBundle:Default:channel }

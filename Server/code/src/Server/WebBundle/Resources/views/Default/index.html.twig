@@ -17,10 +17,10 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 	</style>
 	<script>
 	function getCode() {
-		$.get('/Server/code/web/app_dev.php/api/initiate'
+		$.get('../api/initiate'
 			, {name : "john"})
 			.success(function(data) {
-			window.location.replace('/Server/code/web/app_dev.php/channel/' + data);
+			window.location.replace('../channel/' + data);
 		});
 	}
 	</script>

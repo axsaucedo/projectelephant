@@ -17,10 +17,10 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 	</style>
 	<script>
 	function getCode() {
-		$.get('/Server/code/web/app_dev.php/api/initiate'
+		$.get('../api/initiate'
 			, {name : "john"})
 			.success(function(data) {
-			window.location.replace('/Server/code/web/app_dev.php/channel/' + data);
+			window.location.replace('../channel/' + data);
 		});
 	}
 	</script>
@@ -29,7 +29,7 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 <body>
 	<h1> Chat </h1>
 	<div class="chat"></div>
-	<form action="/Server/code/web/app_dev.php/api/postMessage" method="post">
+	<form action="../api/postMessage" method="post">
 		Name: <input type="text" name="name"/>
 		Message: <input type="text" name="message"/>
 		<input type="hidden" name="channel" value="1234"/>

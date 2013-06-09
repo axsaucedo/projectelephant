@@ -13,11 +13,6 @@ class DefaultController extends Controller
         return new JsonResponse(rand());
     }
     
-    public function getMessageAction()
-    {
-        return new JsonResponse('super');
-    }
-    
     public function postMessageAction()
     {
         return new JsonResponse('ok');

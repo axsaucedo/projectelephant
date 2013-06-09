@@ -17,14 +17,14 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 	</style>
 	<script>
 	function getCode() {
-		var name = "john";
+		console.log($('#nametextbox').val() );
 		$.get('../api/initiate'
-			, {name : name})
+			, {name : $('#nametextbox').val() })
 			.success(function(data) {
 			var url = '../channel/';
 			var form = $('<form action="' + url + '" method="post">' +
-			  '<input type="hidden" name="code" value="' + data + '" />' +
-			  '<input type="hidden" name="name" value="' + name + '" />' +
+			  '<input type="hidden" name="code" value="' + $('#codetextbox').val() + '" />' +
+			  '<input type="hidden" name="name" value="' + $('#nametextbox').val() + '" />' +
 			  '</form>');
 			$('body').append(form);
 			$(form).submit();
@@ -39,13 +39,13 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 
 	<form action="/Server/code/web/app_dev.php/channel/" method="GET">
 		<h2>Enter your name</h2>
-		<input type="text" name="name"/>
+		<input id="nametextbox" type="text" name="name"/>
 		<h2 class="result">Create a new channel!</h2>
-		<button class="btn" onclick="getCode();return
-		 false;">Create!</button>
+		<input value="Create!" type="button" onclick="getCode();return false;"/>
 
 		<h2 class="result">Or join a channel!</h2>
-		<input type="submit">Join!</input>
+		<input id="codetextbox" type="text" name="code" />
+		<input value="Join!" type="submit" />
 	</form>
 </body>
 </html>

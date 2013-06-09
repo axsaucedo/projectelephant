@@ -53,21 +53,29 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 	        	value = event.results[i][0].transcript;
 	       
 	        	if (value) {
-		            $.get('/Server/code/web/app_dev.php/api/initiate'
+		            $.get('/Server/code/web/app_dev.php/api/postMessage'
 		            	, {		name : name
 		            		,	channel : channel 
 		            		,	message : event.results[i][0].transcript})
 		            .success(function(data) {
-		            	console.log("inserting " + name + " " + channel);
-		            	console.log("message: " + value);
-						body.append(value);
+		            	$('#chat').empty();
+		            	for(var i = 0; i < data.length; i++) {
+		            		$('#chat').append("<div class='chat-entry'>"
+		            							+ "<span class='entry-name'>"
+		            							+		data[i].name
+		            							+ "</span>"
+		            							+ "<span class='entry-message'>"
+		            							+		data[i].message
+		            							+ "</span>"
+		            							+"</div>");
+		            		console.log(data[i].name);
+		            	}
 		            });
 		        }
 	        }
 	    }
 	};
 	</script>
-	<div class="chat"></div>
 	<button onclick="start();">start!</button>
 	<form action="../api/postMessage" method="GET" >
 		Name: <input type="text" name="name" value="{{app.request.get('name')}}" readonly/>
@@ -76,5 +84,7 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 		<input type="hidden" name="channel" value="{{app.request.get('code')}}"/>
 		<input type="submit"/>
 	</form>
+	
+	<div id="chat"></div>
 </body>
 </html>

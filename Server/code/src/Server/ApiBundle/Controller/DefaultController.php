@@ -13,8 +13,9 @@ class DefaultController extends Controller
     {
         //return $this->render('ServerApiBundle:Default:index.html.twig', array('name' => rand()));
 
+        $code = $this->encode(rand());
 
-        return new JsonResponse($this->decode($this->encode(1234)));
+        return new JsonResponse('http://localhost/Server/code/web/app_dev.php/api/code/'.$code);
     }
     
     public function postMessageAction(Request $request)

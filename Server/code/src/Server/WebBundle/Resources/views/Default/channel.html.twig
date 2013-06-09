@@ -36,7 +36,7 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 <body>
 	<h1> Chat </h1>
 	<div class="chat"></div>
-	<form action="/Server/code/web/app_dev.php/api/postMessage" method="GET" >
+	<form action="../api/postMessage" method="GET" >
 		Name: <input type="text" name="name" value="{{app.request.get('name')}}" readonly/>
 		<br>
 		Message: <input type="text" name="message"/>

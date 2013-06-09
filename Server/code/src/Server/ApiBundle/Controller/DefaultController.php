@@ -26,7 +26,7 @@ class DefaultController extends Controller
         $em->persist($objChannel);
         $em->flush();
 
-        return new JsonResponse('http://localhost/Server/code/web/app_dev.php/api/code/'.$code);
+        return new JsonResponse($code);
     }
     
     public function postMessageAction(Request $request)

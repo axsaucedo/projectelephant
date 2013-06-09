@@ -14,13 +14,13 @@ rel="stylesheet" />
     {% endblock %}
 	<script>
 	function getCode() {
-		console.log($('#nametextbox').val() );
 		$.get('../api/initiate'
 			, {name : $('#nametextbox').val() })
 			.success(function(data) {
+				console.log(data);
 			var url = '../channel/';
 			var form = $('<form action="' + url + '" method="post">' +
-			  '<input type="hidden" name="code" value="' + $('#codetextbox').val() + '" />' +
+			  '<input type="hidden" name="code" value="' + data + '" />' +
 			  '<input type="hidden" name="name" value="' + $('#nametextbox').val() + '" />' +
 			  '</form>');
 			$('body').append(form);

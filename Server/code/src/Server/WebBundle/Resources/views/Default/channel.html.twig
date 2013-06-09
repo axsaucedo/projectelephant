@@ -31,7 +31,8 @@ rel="stylesheet" />
 </head>
 
 <body>
-	<h1> Chat </h1>
+	<h1> You have created a new Chat! </h1>
+	<h2> Your unique code is {{app.request.get('code')}}</h2>
 	<script>
 	var recognition = new webkitSpeechRecognition();
 	var name = "{{app.request.get('name')}}";
@@ -74,13 +75,6 @@ rel="stylesheet" />
 	};
 	</script>
 	<button onclick="start();">start!</button>
-	<form action="../api/postMessage" method="GET" >
-		Name: <input type="text" name="name" value="{{app.request.get('name')}}" readonly/>
-		<br>
-		Message: <input type="text" name="message"/>
-		<input type="hidden" name="channel" value="{{app.request.get('code')}}"/>
-		<input type="submit"/>
-	</form>
 	
 	<div id="chat"></div>
 </body>

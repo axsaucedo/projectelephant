@@ -31,9 +31,9 @@ class DefaultController extends Controller
     
     public function postMessageAction(Request $request)
     {
-        $name = $request->request->get('name', 'anon');
-        $message = $request->request->get('message', '');
-        $channel = $request->request->get('channel', 0);
+        $name = $request->query->get('name', 'anon');
+        $message = $request->query->get('message', '');
+        $channel = $request->query->get('channel', 0);
         
         $objChannel = new Channel();
         $objChannel->setName($name);

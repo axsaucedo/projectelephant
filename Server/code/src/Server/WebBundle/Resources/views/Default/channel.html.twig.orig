@@ -23,8 +23,8 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 			.success(function(data) {
 			var url = '../channel/';
 			var form = $('<form action="' + url + '" method="post">' +
-			  '<input type="hidden" name="code" value="' + data + '" />' +
-			  '<input type="hidden" name="name" value="' + name + '" />' +
+			  '<input type="text" name="code" value="' + data + '" />' +
+			  '<input type="text" name="name" value="' + name + '" />' +
 			  '</form>');
 			$('body').append(form);
 			$(form).submit();
@@ -34,8 +34,36 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 </head>
 
 <body>
-	<h1> Welcome to Elephant </h1>
-	<button class="btn" onclick="getCode();return false;">Click Me!</button>
-	<h2 class="result"></h2>	
+	<h1> Chat </h1>
+	<script>
+	var recognition = new webkitSpeechRecognition();
+		
+	function start() {
+			recognition.continuous = true;
+			recognition.interimResults = true;
+			recognition.start();
+		}
+
+	recognition.onresult = function (event) {
+		for (var i = event.resultIndex; i < event.results.length; ++i) {
+	        if (event.results[i].isFinal) {
+	            $('body').append(event.results[i][0].transcript);
+	        }
+	    }
+	};
+	</script>
+	<div class="chat"></div>
+<<<<<<< HEAD
+	<form action="../api/postMessage" method="GET" >
+=======
+	<button onclick="start();">start!</button>
+	<form action="/Server/code/web/app_dev.php/api/postMessage" method="GET" >
+>>>>>>> 2ab76d5f6ae77239cf9d997497d973cd25ef7e69
+		Name: <input type="text" name="name" value="{{app.request.get('name')}}" readonly/>
+		<br>
+		Message: <input type="text" name="message"/>
+		<input type="hidden" name="channel" value="{{app.request.get('code')}}"/>
+		<input type="submit"/>
+	</form>
 </body>
 </html>

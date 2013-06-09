@@ -33,7 +33,7 @@ class DefaultController extends Controller
     {
         $name = $request->request->get('name', 'anon');
         $message = $request->request->get('message', '');
-        $channel = $request->request->get('channel', 'anon');
+        $channel = $request->request->get('channel', 0);
         
         $objChannel = new Channel();
         $objChannel->setName($name);
@@ -44,10 +44,7 @@ class DefaultController extends Controller
         $em->persist($objChannel);
         $em->flush();
         
-        $repository = $this->getDoctrine()->getRepository("ServerApiBundle:Channel");
-        $messages = $repository->findByChannel($channel);
-        
-        return new JsonResponse($messages);
+        return $this->returnMessages($channel);
     }
 
     private function encode($num) {
@@ -87,5 +84,21 @@ class DefaultController extends Controller
     	$decoded = $decoded - 10000;
 
     	return $decoded;
+    }
+    
+    private function returnMessages($channel)
+    {
+        $repository = $this->getDoctrine()->getRepository("ServerApiBundle:Channel");
+        $messages = $repository->findByChannel($channel);
+        
+        $data = array();
+        foreach($messages as $message){
+            $arMessage['name'] = $message->getName();
+            $arMessage['message'] = $message->getMessage();
+            $arMessage['channel'] = $message->getChannel();
+            $data[] = $arMessage;    
+        }
+        
+        return new JsonResponse($data);
     }
 }

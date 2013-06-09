@@ -33,17 +33,24 @@ rel="stylesheet" />
 </head>
 
 <body>
-	<h1> You have created a new Chat! </h1>
-	<h2> Your unique code is {{app.request.get('code')}}</h2>
 	<script>
 	var recognition = new webkitSpeechRecognition();
 	var name = "{{app.request.get('name')}}";
 	var channel = "{{app.request.get('code')}}";
-		
+	
+	var started = false;	
+
 	function start() {
 			recognition.continuous = true;
 			recognition.interimResults = true;
-			recognition.start();
+
+			if (!started) {
+				recognition.start();
+			}
+			else {
+				recognition.stop();
+			}
+			started = !started;
 		}
 
 	recognition.onresult = function (event) {
@@ -76,8 +83,24 @@ rel="stylesheet" />
 	    }
 	};
 	</script>
-	<button onclick="start();">start!</button>
+
+	<div id="wrapper">
+		<h1> You have created a new Chat! </h1>
+
+		<h2> Your unique code is <b><font color="#496ced">{{app.request.get('code')}}</font></b></h2>
+
+		<div id="inner-wrapper">
+			<h2 align="right"> Toggle Microphone </h2>
+			<div class="onoffswitch">
+			    <input type="checkbox" name="onoffswitch" onclick="start()" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+			    <label class="onoffswitch-label" for="myonoffswitch">
+			        <div class="onoffswitch-inner"></div>
+			        <div class="onoffswitch-switch"></div>
+			    </label>
+			</div>
 	
-	<div id="chat"></div>
+			<div id="chat"></div>
+		</div>
+	</div>
 </body>
 </html>

@@ -12,7 +12,7 @@ class DefaultController extends Controller
         //return $this->render('ServerApiBundle:Default:index.html.twig', array('name' => rand()));
 
 
-        return new JsonResponse($this->decode($this->encode(100000000)));
+        return new JsonResponse($this->decode($this->encode(1234)));
     }
     
     public function postMessageAction()
@@ -22,6 +22,9 @@ class DefaultController extends Controller
 
     private function encode($num) {
     	$alphabet = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ123456789";
+
+    	//Adding a padding for the codes to start at a certain length
+    	$num = $num + 10000;
 
     	$base_count = strlen($alphabet);
     	$encoded = "";
@@ -49,6 +52,9 @@ class DefaultController extends Controller
     		$multi = $multi * strlen($alphabet);
     		$code = substr($code, 0, -1);
     	}
+
+    	//Removing padding
+    	$decoded = $decoded - 10000;
 
     	return $decoded;
     }

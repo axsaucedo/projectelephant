@@ -91,7 +91,7 @@ class Channel  {
     /**
      * Set channel
      *
-     * @param integer $channel
+     * @param string $channel
      * @return Channel
      */
     public function setChannel($channel)
@@ -104,7 +104,7 @@ class Channel  {
     /**
      * Get channel
      *
-     * @return integer 
+     * @return string 
      */
     public function getChannel()
     {

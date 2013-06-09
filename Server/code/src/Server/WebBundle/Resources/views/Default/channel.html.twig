@@ -37,6 +37,8 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 	<h1> Chat </h1>
 	<script>
 	var recognition = new webkitSpeechRecognition();
+	var name = "{{app.request.get('name')}}";
+	var channel = "{{app.request.get('code')}}";
 		
 	function start() {
 			recognition.continuous = true;
@@ -46,8 +48,21 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 
 	recognition.onresult = function (event) {
 		for (var i = event.resultIndex; i < event.results.length; ++i) {
+			body = $('body');
 	        if (event.results[i].isFinal) {
-	            $('body').append(event.results[i][0].transcript);
+	        	value = event.results[i][0].transcript;
+	       
+	        	if (value) {
+		            $.get('/Server/code/web/app_dev.php/api/initiate'
+		            	, {		name : name
+		            		,	channel : channel 
+		            		,	message : event.results[i][0].transcript})
+		            .success(function(data) {
+		            	console.log("inserting " + name + " " + channel);
+		            	console.log("message: " + value);
+						body.append(value);
+		            });
+		        }
 	        }
 	    }
 	};

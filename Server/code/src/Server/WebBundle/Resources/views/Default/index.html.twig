@@ -35,7 +35,17 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 
 <body>
 	<h1> Welcome to Elephant </h1>
-	<button class="btn" onclick="getCode();return false;">Click Me!</button>
-	<h2 class="result"></h2>	
+
+
+	<form action="/Server/code/web/app_dev.php/channel/" method="GET">
+		<h2>Enter your name</h2>
+		<input type="text" name="name"/>
+		<h2 class="result">Create a new channel!</h2>
+		<button class="btn" onclick="getCode();return
+		 false;">Create!</button>
+
+		<h2 class="result">Or join a channel!</h2>
+		<input type="submit">Join!</input>
+	</form>
 </body>
 </html>

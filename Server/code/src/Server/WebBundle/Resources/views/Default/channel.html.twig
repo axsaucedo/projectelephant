@@ -67,15 +67,14 @@ rel="stylesheet" />
 		            .success(function(data) {
 		            	$('#chat').empty();
 		            	for(var i = 0; i < data.length; i++) {
-		            		$('#chat').append("<div class='chat-entry'>"
-		            							+ "<span class='entry-name'>"
+		            		$('#chat').append("<div class='chat-entry row'>"
+		            							+ "<div class='entry-name span2'>"
 		            							+		data[i].name
 		            							+ "</span>"
-		            							+ "<span class='entry-message'>"
+		            							+ "<span class='entry-message span8'>"
 		            							+		data[i].message
 		            							+ "</span>"
-		            							+"</div>");
-		            		console.log(data[i].name);
+		            							+"</div>");	
 		            	}
 		            });
 		        }
@@ -92,7 +91,7 @@ rel="stylesheet" />
 		<div id="inner-wrapper">
 			<h2 align="right"> Toggle Microphone </h2>
 			<div class="onoffswitch">
-			    <input type="checkbox" name="onoffswitch" onclick="start()" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+			    <input type="checkbox" name="onoffswitch" onclick="start()" class="onoffswitch-checkbox" id="myonoffswitch">
 			    <label class="onoffswitch-label" for="myonoffswitch">
 			        <div class="onoffswitch-inner"></div>
 			        <div class="onoffswitch-switch"></div>

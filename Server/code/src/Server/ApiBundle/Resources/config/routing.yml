@@ -1,3 +1,11 @@
-server_api_homepage:
+server_api_initiate:
     pattern:  /api/initiate/
-    defaults: { _controller: ServerApiBundle:Default:index }
+    defaults: { _controller: ServerApiBundle:Default:initiate }
+    
+server_api_getmessage:
+    pattern:  /api/getMessage/
+    defaults: { _controller: ServerApiBundle:Default:getMessage }
+    
+server_api_postmessage:
+    pattern:  /api/postMessage/
+    defaults: { _controller: ServerApiBundle:Default:postMessage }
